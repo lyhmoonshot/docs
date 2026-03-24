@@ -59,7 +59,6 @@
             "group": "Product Pricing",
             "pages": [
               "src/pages/pricing/chat.en-US",
-              "src/pages/pricing/tools.en-US",
               "src/pages/pricing/limits.en-US",
               "src/pages/pricing/faq.en-US"
             ]
@@ -87,7 +86,10 @@
         ]
       },
       {
-        "tab": "Pricing"
+        "tab": "Pricing",
+        "pages": [
+          "src/pages/pricing/tools.en-US"
+        ]
       },
       {
         "tab": "Guides_ex",
