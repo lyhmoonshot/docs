@@ -1,3 +1,7 @@
+---
+title: "Use JSON Mode with Kimi API"
+---
+
 import { Tabs } from 'nextra/components'
 
 # Use Kimi API's JSON Mode
@@ -15,7 +19,7 @@ In some scenarios, we want the model to output content in a fixed format JSON do
 
 If you directly tell the Kimi large language model in the prompt: "Please output content in JSON format," the model can understand your request and generate a JSON document as required. However, the generated content often has some flaws. For instance, in addition to the JSON document, Kimi might output extra text to explain the JSON document:
 
-```
+```text
 Here is the JSON document you requested
 
 {
@@ -28,7 +32,7 @@ Here is the JSON document you requested
 
 Or the JSON document format might be incorrect and cannot be parsed properly, such as (note the comma at the end of the `summary` field):
 
-```
+```text
 {
 	"title": "Article Title",
 	"author": "Article Author",
@@ -41,9 +45,9 @@ Such a JSON document cannot be parsed correctly. To generate a standard and vali
 
 When using JSON Mode, please follow these guidelines:
 
-* Inform the Kimi large language model in the system prompt or user prompt about the JSON document to be generated, including specific field names and types. It's best to provide an example for the model to refer to.
-* The Kimi large language model will only generate JSON Object type JSON documents. Do not prompt the model to generate JSON Array or other types of JSON documents.
-* If you do not correctly inform the Kimi large language model of the required JSON Object format, the model will generate unexpected results.
+- Inform the Kimi large language model in the system prompt or user prompt about the JSON document to be generated, including specific field names and types. It's best to provide an example for the model to refer to.
+- The Kimi large language model will only generate JSON Object type JSON documents. Do not prompt the model to generate JSON Array or other types of JSON documents.
+- If you do not correctly inform the Kimi large language model of the required JSON Object format, the model will generate unexpected results.
 
 ## JSON Mode Application Example
 
@@ -53,130 +57,130 @@ Let's use a specific example to illustrate the application of JSON Mode:
 
 Let's demonstrate the content of this example with code:
 
-<Tabs items={['python', 'node.js']} >
-  <Tabs.Tab>
-```python showLineNumbers
-import json
-
-from openai import OpenAI
- 
-client = OpenAI(
-    api_key="MOONSHOT_API_KEY", # Replace MOONSHOT_API_KEY with the API Key you obtained from the Kimi Open Platform
-    base_url="https://api.moonshot.ai/v1",
-)
-
-system_prompt = """
-You are the intelligent customer service of Moonshot AI (Kimi), responsible for answering various user questions. Please refer to the document content to reply to user questions. Your reply can be text, images, links, and you can include text, images, and links in a single response.
-
-Please output your reply in the following JSON format:
-
-{
-    "text": "Text information",
-    "image": "Image URL",
-    "url": "Link URL"
-}
-
-Note: Please place the text information in the `text` field, put the image in the `image` field in the form of a link starting with `oss://`, and place the regular link in the `url` field.
-"""
-
-completion = client.chat.completions.create(
-    model="kimi-k2.5",
-    messages=[
-        {"role": "system",
-         "content": "You are Kimi, an artificial intelligence assistant provided by Moonshot AI, excelling in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You will reject any questions involving terrorism, racism, pornography, and violence. Moonshot AI is a proper noun and should not be translated into other languages."},
-        {"role": "system", "content": system_prompt}, # <-- Submit the system prompt with the output format to Kimi
-        {"role": "user", "content": "Hello, my name is Li Lei, what is 1+1?"}
-    ],
-    response_format={"type": "json_object"}, # <-- Use the response_format parameter to specify the output format as json_object
-)
-
-# Since we have set JSON Mode, the message.content returned by the Kimi large language model is a serialized JSON Object string.
-# We use json.loads to parse its content and deserialize it into a Python dictionary.
-content = json.loads(completion.choices[0].message.content)
-
-# Parse text content
-if "text" in content:
-	# For demonstration purposes, we print the content;
-	# In real business logic, you may need to call the text message sending interface to send the generated text to the user.
-    print("text:", content["text"])
-
-# Parse image content
-if "image" in content:
-	# For demonstration purposes, we print the content;
-	# In real business logic, you may need to first parse the image URL, download the image, and then call the image message sending
-	# interface to send the image to the user.
-    print("image:", content["image"])
-
-# Parse link
-if "url" in content:
-	# For demonstration purposes, we print the content;
-	# In real business logic, you may need to call the link card sending interface to send the link to the user in the form of a card.
-    print("url:", content["url"])
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-```js showLineNumbers
-const OpenAI = require("openai")
- 
-const client = new OpenAI({
-    apiKey: "MOONSHOT_API_KEY", // Replace MOONSHOT_API_KEY with the API Key you obtained from the Kimi Open Platform
-    baseYRL: "https://api.moonshot.ai/v1",
-})
- 
-system_prompt = `
-You are the intelligent customer service of Moonshot AI (Kimi), responsible for answering various user questions. Please refer to the document content to reply to user questions. Your reply can be text, images, links, and you can include text, images, and links in a single response.
-"
-" 
-Please output your reply in the following JSON format:
- 
-{
-    "text": "Text information",
-    "image": "Image URL",
-    "url": "Link URL"
-}
-"
-Note: Please place the text information in the 'text' field, put the image in the 'image' field in the form of a link starting with oss://, and place the regular link in the 'url' field.
-`
-async function main() {
-    const completion = await client.chat.completions.create({
-        model: "kimi-k2.5",
-        messages: [
-            {role: "system",
-             content: "You are Kimi, an artificial intelligence assistant provided by Moonshot AI, excelling in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You will reject any questions involving terrorism, racism, pornography, and violence. Moonshot AI is a proper noun and should not be translated into other languages."},
-            {role: "system", content: system_prompt}, // <-- Submit the system prompt with the output format to Kimi
-            {role: "user", content: "Hello, my name is Li Lei, what is 1+1?"}
+<Tabs>
+  <Tab>
+    ```python showLineNumbers
+    import json
+    
+    from openai import OpenAI
+     
+    client = OpenAI(
+        api_key="MOONSHOT_API_KEY", # Replace MOONSHOT_API_KEY with the API Key you obtained from the Kimi Open Platform
+        base_url="https://api.moonshot.ai/v1",
+    )
+    
+    system_prompt = """
+    You are the intelligent customer service of Moonshot AI (Kimi), responsible for answering various user questions. Please refer to the document content to reply to user questions. Your reply can be text, images, links, and you can include text, images, and links in a single response.
+    
+    Please output your reply in the following JSON format:
+    
+    {
+        "text": "Text information",
+        "image": "Image URL",
+        "url": "Link URL"
+    }
+    
+    Note: Please place the text information in the `text` field, put the image in the `image` field in the form of a link starting with `oss://`, and place the regular link in the `url` field.
+    """
+    
+    completion = client.chat.completions.create(
+        model="kimi-k2.5",
+        messages=[
+            {"role": "system",
+             "content": "You are Kimi, an artificial intelligence assistant provided by Moonshot AI, excelling in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You will reject any questions involving terrorism, racism, pornography, and violence. Moonshot AI is a proper noun and should not be translated into other languages."},
+            {"role": "system", "content": system_prompt}, # <-- Submit the system prompt with the output format to Kimi
+            {"role": "user", "content": "Hello, my name is Li Lei, what is 1+1?"}
         ],
-        response_format: {type: "json_object"}, // <-- Use the response_format parameter to specify the output format as json_object
+        response_format={"type": "json_object"}, # <-- Use the response_format parameter to specify the output format as json_object
+    )
+    
+    # Since we have set JSON Mode, the message.content returned by the Kimi large language model is a serialized JSON Object string.
+    # We use json.loads to parse its content and deserialize it into a Python dictionary.
+    content = json.loads(completion.choices[0].message.content)
+    
+    # Parse text content
+    if "text" in content:
+    	# For demonstration purposes, we print the content;
+    	# In real business logic, you may need to call the text message sending interface to send the generated text to the user.
+        print("text:", content["text"])
+    
+    # Parse image content
+    if "image" in content:
+    	# For demonstration purposes, we print the content;
+    	# In real business logic, you may need to first parse the image URL, download the image, and then call the image message sending
+    	# interface to send the image to the user.
+        print("image:", content["image"])
+    
+    # Parse link
+    if "url" in content:
+    	# For demonstration purposes, we print the content;
+    	# In real business logic, you may need to call the link card sending interface to send the link to the user in the form of a card.
+        print("url:", content["url"])
+    ```
+  </Tab>
+  <Tab>
+    ```js showLineNumbers
+    const OpenAI = require("openai")
+     
+    const client = new OpenAI({
+        apiKey: "MOONSHOT_API_KEY", // Replace MOONSHOT_API_KEY with the API Key you obtained from the Kimi Open Platform
+        baseYRL: "https://api.moonshot.ai/v1",
     })
      
-    // Since we have set JSON Mode, the message.content returned by the Kimi large language model is a serialized JSON Object string.
-    // We use JSON.parse to parse its content and deserialize it into a JavaScript object.
-    content = JSON.parse(completion.choices[0].message.content)
+    system_prompt = `
+    You are the intelligent customer service of Moonshot AI (Kimi), responsible for answering various user questions. Please refer to the document content to reply to user questions. Your reply can be text, images, links, and you can include text, images, and links in a single response.
+    "
+    " 
+    Please output your reply in the following JSON format:
      
-    // Parse text content
-    if (content.text) {
-        // For demonstration purposes, we print the content;
-        // In real business logic, you may need to call the text message sending interface to send the generated text to the user.
-        console.log("text:", content.text)
-    } 
-    // Parse image content
-    if (content.image) {
-        // For demonstration purposes, we print the content;
-        // In real business logic, you may need to first parse the image URL, download the image, and then call the image message sending
-        // interface to send the image to the user.
-        console.log("image:", content.image)
-    } 
-    // Parse link
-    if (content.url) {
-        // For demonstration purposes, we print the content;
-        // In real business logic, you may need to call the link card sending interface to send the link to the user in the form of a card.
-        console.log("url", content.url)
+    {
+        "text": "Text information",
+        "image": "Image URL",
+        "url": "Link URL"
     }
-}
-
-main()
-```
-  </Tabs.Tab>
+    "
+    Note: Please place the text information in the 'text' field, put the image in the 'image' field in the form of a link starting with oss://, and place the regular link in the 'url' field.
+    `
+    async function main() {
+        const completion = await client.chat.completions.create({
+            model: "kimi-k2.5",
+            messages: [
+                {role: "system",
+                 content: "You are Kimi, an artificial intelligence assistant provided by Moonshot AI, excelling in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You will reject any questions involving terrorism, racism, pornography, and violence. Moonshot AI is a proper noun and should not be translated into other languages."},
+                {role: "system", content: system_prompt}, // <-- Submit the system prompt with the output format to Kimi
+                {role: "user", content: "Hello, my name is Li Lei, what is 1+1?"}
+            ],
+            response_format: {type: "json_object"}, // <-- Use the response_format parameter to specify the output format as json_object
+        })
+         
+        // Since we have set JSON Mode, the message.content returned by the Kimi large language model is a serialized JSON Object string.
+        // We use JSON.parse to parse its content and deserialize it into a JavaScript object.
+        content = JSON.parse(completion.choices[0].message.content)
+         
+        // Parse text content
+        if (content.text) {
+            // For demonstration purposes, we print the content;
+            // In real business logic, you may need to call the text message sending interface to send the generated text to the user.
+            console.log("text:", content.text)
+        } 
+        // Parse image content
+        if (content.image) {
+            // For demonstration purposes, we print the content;
+            // In real business logic, you may need to first parse the image URL, download the image, and then call the image message sending
+            // interface to send the image to the user.
+            console.log("image:", content.image)
+        } 
+        // Parse link
+        if (content.url) {
+            // For demonstration purposes, we print the content;
+            // In real business logic, you may need to call the link card sending interface to send the link to the user in the form of a card.
+            console.log("url", content.url)
+        }
+    }
+    
+    main()
+    ```
+  </Tab>
 </Tabs>
 
 Let's go over the steps for using JSON Mode once again:
@@ -193,5 +197,4 @@ If you encounter this situation:
 
 We suggest you check if the `finish_reason` field in the return value is `length`. Generally, a smaller `max_tokens` value will cause the model's output to be truncated, and this rule also applies when using JSON Mode. We recommend that you set a reasonable `max_tokens` value based on the estimated size of the output JSON document, so that you can correctly parse the JSON document returned by the Kimi large language model.
 
-For a more detailed explanation of the issue of incomplete or truncated output from the Kimi large language model, please refer to:
-[Common Issues and Solutions](./faq.mdx)
+For a more detailed explanation of the issue of incomplete or truncated output from the Kimi large language model, please refer to: [Common Issues and Solutions](./faq.mdx)

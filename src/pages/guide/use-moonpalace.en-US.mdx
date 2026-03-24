@@ -1,11 +1,15 @@
+---
+title: "Use the API Debugging Tool"
+---
+
 # MoonPalace - Moonshot AI's Kimi API Debugging Tool
 
 MoonPalace (Moon Palace) is an API debugging tool provided by Moonshot AI. It has the following features:
 
 - **Cross-platform support**:
-    - [x] Mac
-    - [x] Windows
-    - [x] Linux;
+  - Mac
+  - Windows
+  - Linux;
 - **Easy to use**, just replace `base_url` with `http://localhost:9988` after launching to start debugging;
 - **Captures complete requests**, including the "scene of the accident" when network errors occur;
 - **Quickly search and view request information** using `request_id` and `chatcmpl_id`;
@@ -48,7 +52,7 @@ Flags:
 Use "moonpalace [command] --help" for more information about a command.
 ```
 
-*If you still cannot find the `moonpalace` binary file, try adding the `$GOPATH/bin/` directory to your `$PATH` environment variable.*
+_If you still cannot find the `moonpalace` binary file, try adding the `$GOPATH/bin/` directory to your `$PATH` environment variable._
 
 ### Downloading from the Releases Page
 
@@ -131,8 +135,8 @@ _Note: The `--detect-repeat` option only interrupts the output in streaming mode
 
 You can adjust MoonPalace's blocking behavior using the `--repeat-threshold` and `--repeat-min-length` parameters:
 
-* The `--repeat-threshold` parameter sets MoonPalace's tolerance for repeated content. A higher threshold means lower tolerance, and repeated content will be blocked more quickly. The range is 0 {'<='} threshold {'<='} 1.
-* The `--repeat-min-length` parameter sets the minimum number of characters before MoonPalace starts detecting repeated content. For example, --repeat-min-length=100 means that repeated content detection will only start when the output exceeds 100 UTF-8 characters.
+- The `--repeat-threshold` parameter sets MoonPalace's tolerance for repeated content. A higher threshold means lower tolerance, and repeated content will be blocked more quickly. The range is 0 {'<='} threshold {'<='} 1.
+- The `--repeat-min-length` parameter sets the minimum number of characters before MoonPalace starts detecting repeated content. For example, --repeat-min-length=100 means that repeated content detection will only start when the output exceeds 100 UTF-8 characters.
 
 #### Enabling Forced Streaming Output
 
@@ -144,17 +148,17 @@ $ moonpalace start --port <PORT> --force-stream
 
 MoonPalace will set the `stream` field in the request parameters to `True`. When receiving a response, it will automatically determine the response format based on whether the caller has set `stream`:
 
-* If the caller has set `stream=True`, the response will be returned in streaming format without any special handling by MoonPalace.
-* If the caller has not set `stream` or has set `stream=False`, MoonPalace will concatenate all the streaming data chunks into a complete completion structure and return it to the caller after receiving all the data chunks.
+- If the caller has set `stream=True`, the response will be returned in streaming format without any special handling by MoonPalace.
+- If the caller has not set `stream` or has set `stream=False`, MoonPalace will concatenate all the streaming data chunks into a complete completion structure and return it to the caller after receiving all the data chunks.
 
 For the caller (developer), enabling the `--force-stream` option will not affect the Kimi API response content you receive. You can still use your original code logic to debug and run your program. In other words, **enabling the `--force-stream` option will not change or break anything**. You can safely enable this option.
 
 Why provide this option?
 
-> We initially hypothesize that common network connection errors and timeouts (Connection Error/Timeout) occur because, in non-streaming request scenarios (stream=False), intermediate gateways or proxy servers may have set read_header_timeout or read_timeout. This can cause the gateway or proxy server to disconnect while the Kimi API server is still assembling the response (since no response, or even the response header, has been received), resulting in Connection Error/Timeout.
-> 
+> We initially hypothesize that common network connection errors and timeouts (Connection Error/Timeout) occur because, in non-streaming request scenarios (stream=False), intermediate gateways or proxy servers may have set read\_header\_timeout or read\_timeout. This can cause the gateway or proxy server to disconnect while the Kimi API server is still assembling the response (since no response, or even the response header, has been received), resulting in Connection Error/Timeout.
+>
 > We added the `--force-stream` parameter to MoonPalace. When starting with `moonpalace start --force-stream`, MoonPalace converts all non-streaming requests (stream=False or unset) to streaming requests. After receiving all data chunks, it assembles them into a complete completion response structure and returns it to the caller.
-> 
+>
 > For the caller, you can still use the non-streaming API as before. However, after MoonPalace's conversion, it can reduce Connection Error/Timeout issues to some extent because MoonPalace has already established a connection with the Kimi API server and started receiving streaming data chunks.
 
 ### Retrieving Requests
@@ -180,6 +184,7 @@ $ moonpalace list
 ```
 
 Use the `list` command to view the content of the most recent requests. By default, it displays fields that are easy to search, such as `id`/`chatcmpl`/`request_id`, as well as `status`/`server_timing`/`requested_at` for checking the request status. If you want to view a specific request, you can use the `inspect` command to retrieve it:
+
 ```shell
 # The following three commands will retrieve the same request information
 $ moonpalace inspect --id 13

@@ -1,11 +1,13 @@
-import { Tabs } from 'nextra/components'
+---
+title: "Using Thinking Models"
+---
 
-# Using thinking models
+import { Tabs } from 'nextra/components'
 
 > Both the `kimi-k2-thinking` and `kimi-k2.5` models have powerful thinking capabilities, supporting deep reasoning and multi-step tool use to solve complex problems.
 >
 > - **`kimi-k2-thinking`**: A dedicated thinking model with thinking forcibly enabled
-> - **[Recommended] `kimi-k2.5`**: A model that can enable or disable thinking capability, enabled by default. You can disable thinking by using `{"type": "disabled"}`
+> - **\[Recommended\] `kimi-k2.5`**: A model that can enable or disable thinking capability, enabled by default. You can disable thinking by using `{"type": "disabled"}`
 
 If you are doing benchmark testing with kimi api, please refer to this [benchmark best practice](./benchmark-best-practice.mdx).
 
@@ -15,145 +17,145 @@ If you are doing benchmark testing with kimi api, please refer to this [benchmar
 
 You can simply use it by switching the `model` parameter:
 
-<Tabs items={['curl', 'python']} >
-  <Tabs.Tab>
-```bash
-$ curl https://api.moonshot.ai/v1/chat/completions \
-    -H "Content-Type: application/json" \
-    -H "Authorization: Bearer $MOONSHOT_API_KEY" \
-    -d '{
-        "model": "kimi-k2-thinking",
-        "messages": [
+<Tabs>
+  <Tab>
+    ```bash
+    $ curl https://api.moonshot.ai/v1/chat/completions \
+        -H "Content-Type: application/json" \
+        -H "Authorization: Bearer $MOONSHOT_API_KEY" \
+        -d '{
+            "model": "kimi-k2-thinking",
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are Kimi."
+                },
+                {
+                    "role": "user",
+                    "content": "Please explain why 1+1=2."
+                }
+            ],
+            "temperature": 1.0
+       }'
+    
+    ```
+  </Tab>
+  <Tab>
+    ```python
+    import os
+    import openai
+    
+    client = openai.Client(
+        base_url="https://api.moonshot.ai/v1",
+        api_key=os.getenv("MOONSHOT_API_KEY"),
+    )
+    
+    stream = client.chat.completions.create(
+        model="kimi-k2-thinking",
+        messages=[
             {
                 "role": "system",
-                "content": "You are Kimi."
+                "content": "You are Kimi.",
             },
             {
                 "role": "user",
                 "content": "Please explain why 1+1=2."
-            }
+            },
         ],
-        "temperature": 1.0
-   }'
-
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-```python
-import os
-import openai
-
-client = openai.Client(
-    base_url="https://api.moonshot.ai/v1",
-    api_key=os.getenv("MOONSHOT_API_KEY"),
-)
-
-stream = client.chat.completions.create(
-    model="kimi-k2-thinking",
-    messages=[
-        {
-            "role": "system",
-            "content": "You are Kimi.",
-        },
-        {
-            "role": "user",
-            "content": "Please explain why 1+1=2."
-        },
-    ],
-    max_tokens=1024*32,
-    stream=True,
-    temperature=1.0,
-)
-
-thinking = False
-for chunk in stream:
-    if chunk.choices:
-        choice = chunk.choices[0]
-        if choice.delta and hasattr(choice.delta, "reasoning_content"):
-            if not thinking:
-                thinking = True
-                print("=============Start Reasoning=============")
-            print(getattr(choice.delta, "reasoning_content"), end="")
-        if choice.delta and choice.delta.content:
-            if thinking:
-                thinking = False
-                print("\n=============End Reasoning=============")
-            print(choice.delta.content, end="")
-
-```
-  </Tabs.Tab>
+        max_tokens=1024*32,
+        stream=True,
+        temperature=1.0,
+    )
+    
+    thinking = False
+    for chunk in stream:
+        if chunk.choices:
+            choice = chunk.choices[0]
+            if choice.delta and hasattr(choice.delta, "reasoning_content"):
+                if not thinking:
+                    thinking = True
+                    print("=============Start Reasoning=============")
+                print(getattr(choice.delta, "reasoning_content"), end="")
+            if choice.delta and choice.delta.content:
+                if thinking:
+                    thinking = False
+                    print("\n=============End Reasoning=============")
+                print(choice.delta.content, end="")
+    
+    ```
+  </Tab>
 </Tabs>
 
 ### Using the kimi-k2.5 model with thinking enabled
 
 For the `kimi-k2.5` model, thinking is enabled by default, no need to manually specify it:
 
-<Tabs items={['curl', 'python']} >
-  <Tabs.Tab>
-```bash
-$ curl https://api.moonshot.ai/v1/chat/completions \
-    -H "Content-Type: application/json" \
-    -H "Authorization: Bearer $MOONSHOT_API_KEY" \
-    -d '{
-        "model": "kimi-k2.5",
-        "messages": [
+<Tabs>
+  <Tab>
+    ```bash
+    $ curl https://api.moonshot.ai/v1/chat/completions \
+        -H "Content-Type: application/json" \
+        -H "Authorization: Bearer $MOONSHOT_API_KEY" \
+        -d '{
+            "model": "kimi-k2.5",
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are Kimi."
+                },
+                {
+                    "role": "user",
+                    "content": "Please explain why 1+1=2."
+                }
+            ]
+       }'
+    
+    ```
+  </Tab>
+  <Tab>
+    ```python
+    import os
+    import openai
+    
+    client = openai.Client(
+        base_url="https://api.moonshot.ai/v1",
+        api_key=os.getenv("MOONSHOT_API_KEY"),
+    )
+    
+    stream = client.chat.completions.create(
+        model="kimi-k2.5",
+        messages=[
             {
                 "role": "system",
-                "content": "You are Kimi."
+                "content": "You are Kimi.",
             },
             {
                 "role": "user",
                 "content": "Please explain why 1+1=2."
-            }
-        ]
-   }'
-
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-```python
-import os
-import openai
-
-client = openai.Client(
-    base_url="https://api.moonshot.ai/v1",
-    api_key=os.getenv("MOONSHOT_API_KEY"),
-)
-
-stream = client.chat.completions.create(
-    model="kimi-k2.5",
-    messages=[
-        {
-            "role": "system",
-            "content": "You are Kimi.",
-        },
-        {
-            "role": "user",
-            "content": "Please explain why 1+1=2."
-        },
-    ],
-    max_tokens=1024*32,
-    stream=True,
-    # temperature=1.0, # For k2.5 models, use default temperature, no need to explicitly specify
-    # No additional parameters needed, thinking is enabled by default
-)
-
-thinking = False
-for chunk in stream:
-    if chunk.choices:
-        choice = chunk.choices[0]
-        if choice.delta and hasattr(choice.delta, "reasoning_content"):
-            if not thinking:
-                thinking = True
-                print("=============Start Reasoning=============")
-            print(getattr(choice.delta, "reasoning_content"), end="")
-        if choice.delta and choice.delta.content:
-            if thinking:
-                thinking = False
-                print("\n=============End Reasoning=============")
-            print(choice.delta.content, end="")
-```
-  </Tabs.Tab>
+            },
+        ],
+        max_tokens=1024*32,
+        stream=True,
+        # temperature=1.0, # For k2.5 models, use default temperature, no need to explicitly specify
+        # No additional parameters needed, thinking is enabled by default
+    )
+    
+    thinking = False
+    for chunk in stream:
+        if chunk.choices:
+            choice = chunk.choices[0]
+            if choice.delta and hasattr(choice.delta, "reasoning_content"):
+                if not thinking:
+                    thinking = True
+                    print("=============Start Reasoning=============")
+                print(getattr(choice.delta, "reasoning_content"), end="")
+            if choice.delta and choice.delta.content:
+                if thinking:
+                    thinking = False
+                    print("\n=============End Reasoning=============")
+                print(choice.delta.content, end="")
+    ```
+  </Tab>
 </Tabs>
 
 ### Using the kimi-k2.5 model with thinking disabled
@@ -164,26 +166,26 @@ Please refer to [Disable Thinking Capability Example](kimi-k2-5-quickstart.mdx#d
 
 In the API response for `kimi-k2-thinking` or `kimi-k2.5` (with thinking enabled) models, we use the `reasoning_content` field as the carrier for the model's reasoning. About the `reasoning_content` field:
 
-* In the OpenAI SDK, `ChoiceDelta` and `ChatCompletionMessage` types do not provide a `reasoning_content` field directly, so you cannot access it via `.reasoning_content`. You must use `hasattr(obj, "reasoning_content")` to check if the field exists, and if so, use `getattr(obj, "reasoning_content")` to retrieve its value.
-* If you use other frameworks or directly interface with the HTTP API, you can directly obtain the `reasoning_content` field at the same level as the `content` field.
-* In streaming output (`stream=True`), the `reasoning_content` field will always appear before the `content` field. In your business logic, you can detect if the `content` field has been output to determine if the reasoning (inference process) is finished.
-* Tokens in `reasoning_content` are also controlled by the `max_tokens` parameter: the sum of tokens in `reasoning_content` and `content` must be less than or equal to `max_tokens`.
+- In the OpenAI SDK, `ChoiceDelta` and `ChatCompletionMessage` types do not provide a `reasoning_content` field directly, so you cannot access it via `.reasoning_content`. You must use `hasattr(obj, "reasoning_content")` to check if the field exists, and if so, use `getattr(obj, "reasoning_content")` to retrieve its value.
+- If you use other frameworks or directly interface with the HTTP API, you can directly obtain the `reasoning_content` field at the same level as the `content` field.
+- In streaming output (`stream=True`), the `reasoning_content` field will always appear before the `content` field. In your business logic, you can detect if the `content` field has been output to determine if the reasoning (inference process) is finished.
+- Tokens in `reasoning_content` are also controlled by the `max_tokens` parameter: the sum of tokens in `reasoning_content` and `content` must be less than or equal to `max_tokens`.
 
 ## Multi-Step Tool Call
 
 Both `kimi-k2-thinking` and `kimi-k2.5` (with thinking enabled) are designed to perform deep reasoning across multiple tool calls, enabling them to tackle highly complex tasks.
 
-### Usage Notes 
+### Usage Notes
 
 To get reliable results, **whether using `kimi-k2-thinking` or `kimi-k2.5` (with thinking enabled by default), always follow these configuration rules:**
 
-* Include the entire reasoning content from the context (the reasoning_content field) in your input. The model will decide which parts are necessary and forward them for further reasoning.
-* Set max_tokens ≥ 16,000 to ensure the full reasoning_content and final content can be returned without truncation.
-* **Set temperature = 1.0 to get the best performance. Note that `kimi-k2.5` model uses a fixed temperature of 1.0.**
-* Enable streaming (stream = true). Because thinking models return both reasoning_content and regular content, the response is larger than usual. Streaming delivers a better user experience and helps avoid network-timeout issues.
-
+- Include the entire reasoning content from the context (the reasoning\_content field) in your input. The model will decide which parts are necessary and forward them for further reasoning.
+- Set max\_tokens ≥ 16,000 to ensure the full reasoning\_content and final content can be returned without truncation.
+- **Set temperature = 1.0 to get the best performance. Note that `kimi-k2.5` model uses a fixed temperature of 1.0.**
+- Enable streaming (stream = true). Because thinking models return both reasoning\_content and regular content, the response is larger than usual. Streaming delivers a better user experience and helps avoid network-timeout issues.
 
 ### Complete example
+
 We walk through a complete example that shows how to properly use thinking models together with official tools for multi-step tool call and extended reasoning.
 
 The example below demonstrates a "Daily News Report Generation" scenario. The model will sequentially call official tools like `date` (to get the date) and `web_search` (to search today's news), and will present deep reasoning throughout this process.
@@ -388,7 +390,6 @@ client.close()
 ```
 
 This process demonstrates how the `kimi-k2-thinking` or `kimi-k2.5` (with thinking enabled) model uses deep reasoning to plan and execute complex multi-step tasks, with detailed reasoning steps (`reasoning_content`) preserved in the context to ensure accurate tool use at every stage.
-
 
 ## Frequently Asked Questions
 

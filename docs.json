@@ -32,6 +32,27 @@
               "src/pages/pricing/limits.en-US",
               "src/pages/pricing/faq.en-US"
             ]
+          },
+          {
+            "group": "Getting Started Guide",
+            "pages": [
+              "src/pages/guide/kimi-k2-5-quickstart.en-US",
+              "src/pages/guide/kimi-k2-quickstart.en-US",
+              "src/pages/guide/use-kimi-k2-thinking-model.en-US",
+              "src/pages/guide/agent-support.en-US",
+              "src/pages/guide/start-using-kimi-api.en-US",
+              "src/pages/guide/use-kimi-in-openclaw.en-US",
+              "src/pages/guide/migrating-from-openai-to-kimi.en-US",
+              "src/pages/guide/use-moonpalace.en-US",
+              "src/pages/guide/engage-in-multi-turn-conversations-using-kimi-api.en-US",
+              "src/pages/guide/use-kimi-vision-model.en-US",
+              "src/pages/guide/auto-reconnect.en-US",
+              "src/pages/guide/utilize-the-streaming-output-feature-of-kimi-api.en-US",
+              "src/pages/guide/use-kimi-api-to-complete-tool-calls.en-US",
+              "src/pages/guide/use-web-search.en-US",
+              "src/pages/guide/use-json-mode-feature-of-kimi-api.en-US",
+              "src/pages/guide/use-partial-mode-feature-of-kimi-api.en-US"
+            ]
           }
         ]
       },

@@ -1,4 +1,6 @@
-# Use the Kimi Vision Model
+---
+title: "Use the Kimi Vision Model"
+---
 
 The Kimi Vision Model (including `moonshot-v1-8k-vision-preview` / `moonshot-v1-32k-vision-preview` / `moonshot-v1-128k-vision-preview` / `kimi-k2.5` and so on) can understand visual content, including text in the image, colors, and the shapes of objects. The latest kimi-k2.5 model can also understand video content.
 
@@ -90,7 +92,6 @@ Note that when using the Vision model, the type of the `message.content` field h
 
 ❌ Invalid Format：
 
-
 ```json
 {
     "model": "kimi-k2.5",
@@ -164,6 +165,7 @@ Note that in the above example, the format of `video_url.url` is `ms://<file-id>
 ## Supported Formats
 
 Images support the following formats:
+
 - png
 - jpeg
 - webp
@@ -192,29 +194,30 @@ The Vision model follows the same pricing model as the `moonshot-v1` series, wit
 [Model Inference Pricing](../pricing/chat.en-US.mdx)
 
 ## Best Practices
+
 ### Resolution
+
 We recommend that image resolution does not exceed 4k (4096×2160), and video resolution does not exceed 2k (2048×1080). Resolutions higher than recommended will only cost more time processing the input without improving model understanding performance.
 
 ### File Upload vs base64
+
 Due to our overall request body size limitations, very large videos should be processed using the file upload method for visual understanding.
 
 For images or videos that need to be referenced multiple times, we recommend using the file upload method for visual understanding.
 
 Regarding file upload limitations, please refer to the [File Upload](../api/files.en-US.mdx) documentation.
 
-
 ## Features and Limitations
 
 The Vision model supports the following features:
 
-- [x] Multi-turn conversations
-- [x] Streaming output
-- [x] Tool invocation
-- [x] JSON Mode
-- [x] Partial Mode
+- Multi-turn conversations
+- Streaming output
+- Tool invocation
+- JSON Mode
+- Partial Mode
 
 The following features are not supported or only partially supported:
-
 
 - URL-formatted images: Not supported, currently only supports base64-encoded image content and images/videos uploaded via file ID
 
@@ -223,28 +226,27 @@ Other limitations:
 - Image quantity: The Vision model has no limit on the number of images, but ensure that the request body size does not exceed 100M.
 
 ## Parameters Differences in Request Body
+
 Parameters are listed in [chat](../api/chat.en-US.mdx#request-body). However, behaviour of some parameters may be different in k2.5 models.
 
 **We recommend using the default values instead of manually configuring these parameters.**
 
 Differences are listed below.
 
-| Field        | Required | Description                                                                                           | Type       | Values      |
-| ----------- | ---- | ------------------------------------------------------------------------------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------- |
-| max_tokens  | optional | The maximum number of tokens to generate for the chat completion. | int        | Default to be 32k aka 32768 |
+| Field | Required | Description | Type | Values |
+| --- | --- | --- | --- | --- |
+| max\_tokens | optional | The maximum number of tokens to generate for the chat completion. | int | Default to be 32k aka 32768 |
 | thinking | optional | **New!** This parameter controls if the thinking is enabled for this request | object | Default to be `{"type": "enabled"}`. Value can only be one of `{"type": "enabled"}` or `{"type": "disabled"}` |
-| temperature | optional | The sampling temperature to use   | float      | k2.5 model will use a fixed value 1.0, non-thinking mode will use a fixed value 0.6. Any other value will result in an error  |
-| top_p       | optional | A sampling method | float      | k2.5 model will use a fixed value 0.95. Any other value will result in an error  |
-| n           | optional | The number of results to generate for each input message | int        | k2.5 model will use a fixed value 1. Any other value will result in an error  |
-| presence_penalty | optional | Penalizing new tokens based on whether they appear in the text | float        | k2.5 model will use a fixed value 0.0. Any other value will result in an error  |
-| frequency_penalty  | optional | Penalizing new tokens based on their existing frequency in the text | float        | k2.5 model will use a fixed value 0.0. Any other value will result in an error  |
-
+| temperature | optional | The sampling temperature to use | float | k2.5 model will use a fixed value 1.0, non-thinking mode will use a fixed value 0.6. Any other value will result in an error |
+| top\_p | optional | A sampling method | float | k2.5 model will use a fixed value 0.95. Any other value will result in an error |
+| n | optional | The number of results to generate for each input message | int | k2.5 model will use a fixed value 1. Any other value will result in an error |
+| presence\_penalty | optional | Penalizing new tokens based on whether they appear in the text | float | k2.5 model will use a fixed value 0.0. Any other value will result in an error |
+| frequency\_penalty | optional | Penalizing new tokens based on their existing frequency in the text | float | k2.5 model will use a fixed value 0.0. Any other value will result in an error |
 
 ## Advanced Usages
-### Using vision models in Kimi Cli
-[Kimi Cli](https://github.com/MoonshotAI/kimi-cli/) is an open source AI Agent by Moonshot.
-Kimi Cli has become more powerful with the release of K2.5 model.
-[Kimi Agent SDK](https://github.com/MoonshotAI/kimi-agent-sdk/) can be used in your own code, using Kimi Cli more conveniently.
 
-A tool, that can find the source of anime from a screenshot using Kimi Agent SDK is shown as below.
-[anime-recognizer](https://github.com/MoonshotAI/kimi-agent-sdk/tree/main/examples/go/anime-recognizer)
+### Using vision models in Kimi Cli
+
+[Kimi Cli](https://github.com/MoonshotAI/kimi-cli/) is an open source AI Agent by Moonshot. Kimi Cli has become more powerful with the release of K2.5 model. [Kimi Agent SDK](https://github.com/MoonshotAI/kimi-agent-sdk/) can be used in your own code, using Kimi Cli more conveniently.
+
+A tool, that can find the source of anime from a screenshot using Kimi Agent SDK is shown as below. [anime-recognizer](https://github.com/MoonshotAI/kimi-agent-sdk/tree/main/examples/go/anime-recognizer)
