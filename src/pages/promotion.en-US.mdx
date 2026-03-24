@@ -1,0 +1,42 @@
+{/* disable auto import */}
+
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
+import { Button } from 'nextra/components'
+
+# Current Promotion
+
+## 🎉 OpenClaw Launch Top-Up Bonus
+
+**Event Time:**  
+2026-03-14 00:00:00(UTC+8) – 2026-03-20 23:59:59 (UTC+8)
+
+**Event Details**
+
+- Make a single top-up of **≥ $100** to receive tiered voucher bonuses based on the top-up amount.
+
+| Top-up | Voucher Bonus |
+|--------|--------------|
+| < $100 | 0%           |
+| $100 – $299 | 20%     |
+| $300-$999 | 30%        |
+| ≥ $1,000 | 40%        |
+
+<div className="mt-4">
+  <div className="flex items-center justify-start">
+    <Button asChild preventDefault size="lg" className="bg-[#1677ff] hover:bg-[#1677ff]/90 text-white flex-shrink-0 z-10">
+      <Link href="/console/pay" aria-label="Go to top up" className="text-white text-nowrap">
+        Top UP <ArrowRight className="ml-1 w-4 h-4 inline" />
+      </Link>
+    </Button>
+  </div>
+</div>
+
+**Rules**
+
+- During the campaign period, each Organization ID is eligible to participate only once and will receive a single voucher reward. The system will automatically identify the single transaction with the highest value among all top-ups made by the user during the campaign period (specifically, the highest-value transaction occurring on the day of the user's first top-up within the period); the reward will be calculated proportionally based on this specific transaction, while all other top-ups will not qualify for rewards.
+- Eligibility is determined based on the actual timestamp at which the Open Platform receives the top-up funds. Eligibility for this specific campaign is calculated independently and is unrelated to any previous top-up reward promotions.
+- Top-up amounts are calculated in USD and rounded down to the nearest whole dollar; fractional amounts do not count toward bonus tiers.
+- The voucher will be issued within 1 business day after the recharge. The maximum amount of the voucher is $4,000.
+- The voucher can be used for all purchases on the kimi platform. The voucher is valid for **90 days** and will be automatically cleared if not used by the expiration date.The coupon balance will be deducted first from the purchase amount.
+- Recharge amounts are **non-refundable**.
