@@ -20,7 +20,20 @@
     },
     "tabs": [
       {
-        "tab": "Guides"
+        "tab": "Guides",
+        "pages": [
+          "src/pages/overview.en-US",
+          "src/pages/introduction.en-US",
+          {
+            "group": "Product Pricing",
+            "pages": [
+              "src/pages/pricing/chat.en-US",
+              "src/pages/pricing/tools.en-US",
+              "src/pages/pricing/limits.en-US",
+              "src/pages/pricing/faq.en-US"
+            ]
+          }
+        ]
       },
       {
         "tab": "Guides_ex",
