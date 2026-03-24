@@ -23,9 +23,11 @@ Chat Completion API charges: We bill both the Input and Output based on usage. I
 
 **Explanation：The prices listed below are all inclusive of tax.**
 
-### Multi-modal Model kimi-k2.5 <RechargeButton />
+### Multi-modal Model kimi-k2.5 
 
-<KimiK25Price />
+| Model       | Unit       | Input Price（Cache Hit） | Input Price（Cache Miss） | Output Price | Context Window      |
+|-------------|------------|--------------------------|---------------------------|--------------|---------------------|
+| kimi-k2.5   | 1M tokens  | $0.10                    | $0.60                     | $3.00        | 262,144 tokens      |
 
 - kimi-k2.5 is Kimi's most versatile model to date, featuring a native multimodal architecture that supports both visual and text input, thinking and non-thinking modes, and dialogue and agent tasks.
 - Context length 256k, supports long thinking and deep reasoning.
@@ -33,7 +35,13 @@ Chat Completion API charges: We bill both the Input and Output based on usage. I
 
 ### Generation Model kimi-k2
 
-<KimiK2PriceRegular />
+| Model | Unit | Input Price（Cache Hit） | Input Price（Cache Miss） | Output Price | Context Window |
+| ----- | ---- | ------------------------ | ------------------------- | ------------ | -------------- |
+| kimi-k2-0905-preview | 1M tokens | $0.15 | $0.60 | $2.50 | 262,144 tokens |
+| kimi-k2-0711-preview | 1M tokens | $0.15 | $0.60 | $2.50 | 131,072 tokens |
+| kimi-k2-turbo-preview | 1M tokens | $0.15 | $1.15 | $8.00 | 262,144 tokens |
+| kimi-k2-thinking | 1M tokens | $0.15 | $0.60 | $2.50 | 262,144 tokens |
+| kimi-k2-thinking-turbo | 1M tokens | $0.15 | $1.15 | $8.00 | 262,144 tokens |
 
 - kimi-k2 is a Mixture-of-Experts (MoE) foundation model with exceptional coding and agent capabilities, featuring 1 trillion total parameters and 32 billion activated parameters. In benchmark evaluations covering general knowledge reasoning, programming, mathematics, and agent-related tasks, the K2 model outperforms other leading open-source models
 - kimi-k2-0905-preview: Context length 256k. Based on kimi-k2-0711-preview, with enhanced agentic coding abilities, improved frontend code quality and practicality, and better context understanding
