@@ -83,20 +83,41 @@
         ]
       },
       {
-        "tab": "Guides_moonshot",
-        "pages": [
-          "guide/kimi-cli-support",
-          "guide/benchmark-best-practice",
-          "guide/kimi-k2-quickstart",
-          "guide/migrating-from-openai-to-kimi",
-          "guide/org-best-practice",
-          "guide/prompt-best-practice",
-          "guide/start-using-kimi-api",
-          "guide/use-kimi-k2-thinking-model",
-          "guide/use-kimi-in-openclaw",
-          "guide/use-kimi-vision-model",
-          "guide/use-moonpalace",
-          "guide/use-playground-to-debug-the-model"
+        "tab": "moonshot",
+        "groups": [
+          {
+            "group": "guide",
+            "pages": [
+              "guide/kimi-cli-support",
+              "guide/benchmark-best-practice",
+              "guide/kimi-k2-quickstart",
+              "guide/migrating-from-openai-to-kimi",
+              "guide/org-best-practice",
+              "guide/prompt-best-practice",
+              "guide/start-using-kimi-api",
+              "guide/use-kimi-k2-thinking-model",
+              "guide/use-kimi-in-openclaw",
+              "guide/use-kimi-vision-model",
+              "guide/use-moonpalace",
+              "guide/use-playground-to-debug-the-model"
+            ]
+          },
+          {
+            "group": "pricing",
+            "pages": [
+              "pricing/chat",
+              "pricing/faq",
+              "pricing/limits",
+              "pricing/tools"
+            ]
+          },
+          {
+            "group": "agreement",
+            "pages": [
+              "agreement/modeluse",
+              "agreement/userprivacy"
+            ]
+          }
         ]
       }
     ]
