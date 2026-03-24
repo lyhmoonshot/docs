@@ -180,8 +180,20 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Contact Sales",
+        "href": "https://platform.moonshot.ai/contact-sales"
+      },
+      {
+        "label": "Blog",
+        "href": "https://platform.moonshot.ai/blog"
+      },
+      {
+        "label": "Playground",
+        "href": "https://platform.moonshot.ai/playground"
+      },
+      {
+        "label": "User Center",
+        "href": "https://platform.moonshot.ai/console/account"
       }
     ],
     "primary": {
@@ -208,5 +220,8 @@
       "github": "https://github.com/mintlify",
       "linkedin": "https://linkedin.com/company/mintlify"
     }
+  },
+  "banner": {
+    "content": "🎉 New kimi k2.5 Multi-modal Model released! Now supports multimodal understanding and processing."
   }
 }
