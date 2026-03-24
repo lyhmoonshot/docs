@@ -195,12 +195,7 @@
         "label": "User Center",
         "href": "https://platform.moonshot.ai/console/account"
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
+    ]
   },
   "contextual": {
     "options": [
