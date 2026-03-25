@@ -18,7 +18,7 @@ You can use streaming output in this way (stream=True) and get the streaming res
 
 <Tabs>
   <Tab title="python">
-    ```python showLineNumbers
+    ```python 
     from openai import OpenAI
      
     client = OpenAI(
@@ -49,7 +49,7 @@ You can use streaming output in this way (stream=True) and get the streaming res
     ```
   </Tab>
   <Tab title="node.js">
-    ```js showLineNumbers
+    ```js 
     const OpenAI = require('openai')
      
     client = OpenAI({
@@ -130,7 +130,7 @@ However, in practice, streaming output can be interrupted by uncontrollable fact
 
 <Tabs>
   <Tab title="python">
-    ```python showLineNumbers
+    ```python 
     import os
     import httpx
     from openai import OpenAI
@@ -181,7 +181,7 @@ However, in practice, streaming output can be interrupted by uncontrollable fact
     ```
   </Tab>
   <Tab title="node.js">
-    ```js showLineNumbers
+    ```js 
     const axios = require('axios');
     const OpenAI = require('openai');
      
@@ -252,7 +252,7 @@ If you prefer not to use the Python SDK to handle streaming output and instead w
 
 <Tabs>
   <Tab title="python">
-    ```python showLineNumbers
+    ```python 
     import httpx # We use the httpx library to make our HTTP requests
     
     
@@ -311,7 +311,7 @@ If you prefer not to use the Python SDK to handle streaming output and instead w
     ```
   </Tab>
   <Tab title="node.js">
-    ```js showLineNumbers
+    ```js 
     const axios = require('axios'); // Use the axios library to make HTTP requests
     
     let data = {
@@ -394,7 +394,7 @@ Sometimes, we want to get multiple results to choose from. To do this, you shoul
 
 <Tabs>
   <Tab title="python">
-    ```python showLineNumbers
+    ```python 
     import httpx # We use the httpx library to make our HTTP requests
     
     
@@ -465,7 +465,7 @@ Sometimes, we want to get multiple results to choose from. To do this, you shoul
     ```
   </Tab>
   <Tab title="node.js">
-    ```js showLineNumbers
+    ```js 
     const axios = require('axios'); // Use the axios library to make HTTP requests
     
     let data = {

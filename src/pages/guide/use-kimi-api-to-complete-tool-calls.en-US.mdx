@@ -71,7 +71,7 @@ By describing our tool definitions using JSON Schema, we can make it clearer and
 
 <Tabs>
   <Tab title="python">
-    ```python showLineNumbers
+    ```python 
     tools = [
     	{
     		"type": "function", # The agreed-upon field type, currently supports function as a value
@@ -122,7 +122,7 @@ By describing our tool definitions using JSON Schema, we can make it clearer and
     ```
   </Tab>
   <Tab title="node.js">
-    ```js showLineNumbers
+    ```js 
     tools = [
     	{
     		"type": "function", // The field "type" is a convention, currently supporting "function" as its value
@@ -200,7 +200,7 @@ Let's try submitting the `search` tool to the Kimi large language model to see i
 
 <Tabs>
   <Tab title="python">
-    ````python showLineNumbers
+    ````python 
     from openai import OpenAI
     
     
@@ -271,7 +271,7 @@ Let's try submitting the `search` tool to the Kimi large language model to see i
     ````
   </Tab>
   <Tab title="node.js">
-    ```js showLineNumbers
+    ```js 
     const OpenAI = require("openai")
      
      
@@ -388,7 +388,7 @@ Let's explain how to execute the `tool_calls` returned by Kimi large language mo
 
 <Tabs>
   <Tab title="python">
-    ```python showLineNumbers
+    ```python 
     from typing import *
     
     import json
@@ -537,7 +537,7 @@ Let's explain how to execute the `tool_calls` returned by Kimi large language mo
     ```
   </Tab>
   <Tab title="node.js">
-    ```js showLineNumbers
+    ```js 
     const axios = require('axios');
     const openai = require('openai'); // You need to install the openai library
     
@@ -681,7 +681,7 @@ In streaming output mode (`stream`), `tool_calls` are still applicable, but ther
 
 <Tabs>
   <Tab title="python">
-    ```python showLineNumbers
+    ```python 
     import os
     import json
     import httpx  # We use the httpx library to make our HTTP requests
@@ -828,7 +828,7 @@ In streaming output mode (`stream`), `tool_calls` are still applicable, but ther
     ```
   </Tab>
   <Tab title="node.js">
-    ```js showLineNumbers
+    ```js 
     const os = require('os');
     const axios = require('axios');// Use the axios library to perform HTTP requests
      
@@ -955,7 +955,7 @@ Below is an example of handling `tool_calls` in streaming output using the opena
 
 <Tabs>
   <Tab title="python">
-    ```python showLineNumbers
+    ```python 
     import os
     import json
     
@@ -1068,7 +1068,7 @@ Below is an example of handling `tool_calls` in streaming output using the opena
     ```
   </Tab>
   <Tab title="node.js">
-    ```js showLineNumbers
+    ```js 
     const os = require('os');
     const openai = require('openai'); // Need to install the openai library
     
