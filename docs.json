@@ -69,17 +69,29 @@
         "groups": [
           {
             "group": "API documentation",
+            "hidden": true,
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
             "group": "Endpoint examples",
+            "hidden": true,
             "pages": [
               "api-reference/endpoint/get",
               "api-reference/endpoint/create",
               "api-reference/endpoint/delete",
               "api-reference/endpoint/webhook"
+            ]
+          },
+          {
+            "group": "API",
+            "pages": [
+              "api/chat",
+              "api/tool-use",
+              "api/balance",
+              "api/estimate",
+              "api/partial"
             ]
           }
         ]
