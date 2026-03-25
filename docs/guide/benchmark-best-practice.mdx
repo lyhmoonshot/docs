@@ -15,32 +15,248 @@ Benchmarking is an **engineering task** that needs stability and reproducibility
 
 ## K2.5 Models Benchmark Recommended Settings
 
-|  |
-| --- |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-| thinking={`{"type": "enabled"}`} <br /> Recommended max steps = 120 |
-|  |
-| thinking={`{"type": "enabled"}`} <br /> Recommended max steps = 120 |
-| thinking={`{"type": "enabled"}`} <br /> Recommended max steps = 200 <br /> parallel n=8 |
-|  |
-| thinking={`{"type": "enabled"}`} <br /> Recommended max steps = 120 |
-|  |
-|  |
-| thinking={`{"type": "enabled"}`} <br /> Recommended max steps = 250 <br /> Recommend using a context management mechanism to prevent overly long context and ensure enough tool calls <br /> Include today's date in the system prompt and let the model search when it is uncertain |
-| thinking={`{"type": "enabled"}`} <br /> Recommended max steps = 100 |
+<table className="nextra-table">
+  <thead>
+    <tr>
+      <th>Benchmark Category</th>
+      <th>Benchmark</th>
+      <th>Temperature</th>
+      <th style={{ width: '210px' }}>Recommended max tokens</th>
+      <th>Recommended runs</th>
+      <th>Top-p</th>
+      <th>Others (e.g. test log)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowSpan="10">Multi-modal</td>
+      <td>MMMU-Pro</td>
+      <td> 1.0</td>
+      <td>max tokens = 64k</td>
+      <td>3</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>CharXiv (RQ)</td>
+      <td>1.0</td>
+      <td>max tokens = 64k</td>
+      <td>3</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>MathVision</td>
+      <td>1.0</td>
+      <td>max tokens = 64k</td>
+      <td>3</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>MathVista</td>
+      <td>1.0</td>
+      <td>max tokens = 64k</td>
+      <td>3</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>OCRBench</td>
+      <td>1.0</td>
+      <td>max tokens = 64k</td>
+      <td>3</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>ZeroBench</td>
+      <td>1.0</td>
+      <td>max tokens = 64k</td>
+      <td>3</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>WorldVQA</td>
+      <td>1.0</td>
+      <td>max tokens = 64k</td>
+      <td>3</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>InfoVQA (val)</td>
+      <td>1.0</td>
+      <td>max tokens = 64k</td>
+      <td>3</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>SimpleVQA</td>
+      <td>1.0</td>
+      <td>max tokens = 64k</td>
+      <td>3</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>ZeroBench w/ tools</td>
+      <td>1.0</td>
+      <td>max tokens = 64k</td>
+      <td>3</td>
+      <td>top_p=0.95</td>
+      <td>Recommended max steps = 30<br />thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td rowSpan="3">Code</td>
+      <td>SWE Series</td>
+      <td>1.0</td>
+      <td>per step tokens = 16k;<br />total max tokens = 256k</td>
+      <td>5</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>Lcb + OJBench</td>
+      <td>1.0</td>
+      <td>max tokens = 128k</td>
+      <td>1</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>TerminalBench</td>
+      <td>1.0</td>
+      <td>max tokens = 128k</td>
+      <td>3</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td rowSpan="9">Reasoning</td>
+      <td>AIME2025 no tools</td>
+      <td>1.0</td>
+      <td>total max tokens = 96k</td>
+      <td>32</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>AIME2025 w/ tools</td>
+      <td>1.0</td>
+      <td>per turn tokens = 96k;<br />total max tokens = 96k</td>
+      <td>32</td>
+      <td>top_p=0.95</td>
+      <td>
+        thinking={`{"type": "enabled"}`}
+        <br />
+        Recommended max steps = 120
+      </td>
+    </tr>
+    <tr>
+      <td>HLE no tools</td>
+      <td>1.0</td>
+      <td>max tokens = 96k</td>
+      <td>1</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>HLE w/ tools</td>
+      <td>1.0</td>
+      <td>total max tokens = 128k;<br />per step tokens = 48k</td>
+      <td>1</td>
+      <td>top_p=0.95</td>
+      <td>
+        thinking={`{"type": "enabled"}`}
+        <br />
+        Recommended max steps = 120
+      </td>
+    </tr>
+    <tr>
+      <td>HLE heavy</td>
+      <td>1.0</td>
+      <td>total max tokens = 128k;<br />per step tokens = 48k</td>
+      <td>1</td>
+      <td>top_p=0.95</td>
+      <td>
+        thinking={`{"type": "enabled"}`}
+        <br />
+        Recommended max steps = 200
+        <br />
+        parallel n=8
+      </td>
+    </tr>
+    <tr>
+      <td>HMMT2025 no tools</td>
+      <td>1.0</td>
+      <td>max tokens = 96k</td>
+      <td>32</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>HMMT2025 w/tools</td>
+      <td>1.0</td>
+      <td>per step tokens = 96k;<br />total tokens = 96k</td>
+      <td>32</td>
+      <td>top_p=0.95</td>
+      <td>
+        thinking={`{"type": "enabled"}`}
+        <br />
+        Recommended max steps = 120
+      </td>
+    </tr>
+    <tr>
+      <td>IMO-AnswerBench</td>
+      <td>1.0</td>
+      <td>max tokens = 96k</td>
+      <td>3</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>GPQA-Diamond</td>
+      <td>1.0</td>
+      <td>max tokens = 96k</td>
+      <td>8</td>
+      <td>top_p=0.95</td>
+      <td>thinking={`{"type": "enabled"}`}</td>
+    </tr>
+    <tr>
+      <td>Agentic Search Task</td>
+      <td>BrowseComp / BrowseComp-ZH / Seal-0 / Frames</td>
+      <td>1.0</td>
+      <td>per step tokens = 24k;<br />total max tokens = 256k</td>
+      <td>4</td>
+      <td>top_p=0.95</td>
+      <td>
+        thinking={`{"type": "enabled"}`}
+        <br />
+        Recommended max steps = 250
+        <br />
+        Recommend using a context management mechanism to prevent overly long context and ensure enough tool calls
+        <br />
+        Include today's date in the system prompt and let the model search when it is uncertain
+      </td>
+    </tr>
+    <tr>
+      <td>Agentic Task</td>
+      <td>Tau</td>
+      <td>1.0</td>
+      <td>&gt;=16k</td>
+      <td>4</td>
+      <td>top_p=0.95</td>
+      <td>
+        thinking={`{"type": "enabled"}`}
+        <br />
+        Recommended max steps = 100
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 For third-party providers, refer to Kimi Vendor Verifier (KVV) to choose high-accuracy services. Details: [https://kimi.com/blog/kimi-vendor-verifier.html](https://kimi.com/blog/kimi-vendor-verifier.html)
 
