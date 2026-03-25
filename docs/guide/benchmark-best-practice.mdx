@@ -272,22 +272,122 @@ You can refer to [Use Thinking Models](/docs/guide/use-kimi-k2-thinking-model.md
 
 ## K2-Thinking Series Models Benchmark Recommended Settings
 
-|  |
-| --- |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
-|  |
+<table className="nextra-table">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Benchmark</th>
+      <th>Temperature</th>
+      <th style={{ width: '210px' }}>Max token</th>
+      <th>Suggested runs</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowSpan="3">Code</td>
+      <td>SWE</td>
+      <td>0.7(recommended)<br />1.0 (ok)</td>
+      <td>per step tokens = 16k;<br />total max token = 256k</td>
+      <td>5</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Lcb + OJBench</td>
+      <td>1.0</td>
+      <td>max tokens = 128k</td>
+      <td>1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>TerminalBench</td>
+      <td>1.0</td>
+      <td>max tokens = 128k</td>
+      <td>3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowSpan="9">Reasoning</td>
+      <td>AIME2025 no tools</td>
+      <td>1.0</td>
+      <td>total max tokens = 96k</td>
+      <td>32</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>AIME2025 w/ tools</td>
+      <td>1.0</td>
+      <td>per step tokens = 48k;<br />total max tokens = 128k</td>
+      <td>16</td>
+      <td>max steps = 120</td>
+    </tr>
+    <tr>
+      <td>HLE no tools</td>
+      <td>1.0</td>
+      <td>max tokens = 96k</td>
+      <td>1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>HLE w/ tools</td>
+      <td>1.0</td>
+      <td>total max tokens = 128k;<br />per step tokens = 48k</td>
+      <td>1</td>
+      <td>max steps = 120</td>
+    </tr>
+    <tr>
+      <td>HLE heavy</td>
+      <td>1.0</td>
+      <td>total max tokens = 128k;<br />per step tokens = 48k</td>
+      <td>1</td>
+      <td>max steps = 200<br />parallel n=8</td>
+    </tr>
+    <tr>
+      <td>HMMT2025 no tools</td>
+      <td>1.0</td>
+      <td>max tokens = 96k</td>
+      <td>32</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>HMMT2025 w/tools</td>
+      <td>1.0</td>
+      <td>per step tokens = 96k;<br />total tokens = 96k</td>
+      <td>32</td>
+      <td>max steps = 120</td>
+    </tr>
+    <tr>
+      <td>IMO-AnswerBench</td>
+      <td>1.0</td>
+      <td>max tokens = 96k</td>
+      <td>3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>GPQA-Diamond</td>
+      <td>1.0</td>
+      <td>max tokens = 96k</td>
+      <td>8</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Agentic Search Task</td>
+      <td>BrowseComp/ BrowseComp-ZH/Seal-0/ Frames</td>
+      <td>1.0</td>
+      <td>per step tokens = 24k;<br />total max tokens = 256k</td>
+      <td>4</td>
+      <td>max steps = 250<br />Enable context management to prevent context overflow and ensure enough tool calls.<br />Include today's date in the system prompt, and tell the model to search when unsure.</td>
+    </tr>
+    <tr>
+      <td>Agentic Task</td>
+      <td>Tau</td>
+      <td>0.0</td>
+      <td>&gt;=16k</td>
+      <td>4</td>
+      <td>max steps = 100</td>
+    </tr>
+  </tbody>
+</table>
 
 ## API Recommendations & Notes
 
