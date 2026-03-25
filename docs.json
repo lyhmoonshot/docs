@@ -22,44 +22,44 @@
       {
         "tab": "Guides",
         "pages": [
-          "src/pages/overview.en-US",
-          "src/pages/introduction.en-US",
+          "docs/overview.en-US",
+          "docs/introduction.en-US",
           {
             "group": "Getting Started Guide",
             "pages": [
-              "src/pages/guide/kimi-k2-5-quickstart.en-US",
-              "src/pages/guide/kimi-k2-quickstart.en-US",
-              "src/pages/guide/use-kimi-k2-thinking-model.en-US",
-              "src/pages/guide/start-using-kimi-api.en-US",
-              "src/pages/guide/use-kimi-in-openclaw.en-US",
-              "src/pages/guide/migrating-from-openai-to-kimi.en-US",
-              "src/pages/guide/use-moonpalace.en-US",
-              "src/pages/guide/engage-in-multi-turn-conversations-using-kimi-api.en-US",
-              "src/pages/guide/use-kimi-vision-model.en-US",
-              "src/pages/guide/auto-reconnect.en-US",
-              "src/pages/guide/utilize-the-streaming-output-feature-of-kimi-api.en-US",
-              "src/pages/guide/use-kimi-api-to-complete-tool-calls.en-US",
-              "src/pages/guide/use-web-search.en-US",
-              "src/pages/guide/use-json-mode-feature-of-kimi-api.en-US",
-              "src/pages/guide/use-partial-mode-feature-of-kimi-api.en-US",
-              "src/pages/guide/use-playground-to-debug-the-model.en-US",
-              "src/pages/guide/use-kimi-api-for-file-based-qa.en-US",
-              "src/pages/guide/agent-support.en-US",
-              "src/pages/guide/configure-the-modelscope-mcp-server.en-US",
-              "src/pages/guide/use-official-tools.en-US",
-              "src/pages/guide/kimi-cli-support.en-US",
-              "src/pages/guide/use-kimi-k2-to-setup-agent.en-US",
-              "src/pages/guide/benchmark-best-practice.en-US",
-              "src/pages/guide/prompt-best-practice.en-US",
-              "src/pages/guide/org-best-practice.en-US",
-              "src/pages/guide/faq.en-US"
+              "docs/guide/kimi-k2-5-quickstart.en-US",
+              "docs/guide/kimi-k2-quickstart.en-US",
+              "docs/guide/use-kimi-k2-thinking-model.en-US",
+              "docs/guide/start-using-kimi-api.en-US",
+              "docs/guide/use-kimi-in-openclaw.en-US",
+              "docs/guide/migrating-from-openai-to-kimi.en-US",
+              "docs/guide/use-moonpalace.en-US",
+              "docs/guide/engage-in-multi-turn-conversations-using-kimi-api.en-US",
+              "docs/guide/use-kimi-vision-model.en-US",
+              "docs/guide/auto-reconnect.en-US",
+              "docs/guide/utilize-the-streaming-output-feature-of-kimi-api.en-US",
+              "docs/guide/use-kimi-api-to-complete-tool-calls.en-US",
+              "docs/guide/use-web-search.en-US",
+              "docs/guide/use-json-mode-feature-of-kimi-api.en-US",
+              "docs/guide/use-partial-mode-feature-of-kimi-api.en-US",
+              "docs/guide/use-playground-to-debug-the-model.en-US",
+              "docs/guide/use-kimi-api-for-file-based-qa.en-US",
+              "docs/guide/agent-support.en-US",
+              "docs/guide/configure-the-modelscope-mcp-server.en-US",
+              "docs/guide/use-official-tools.en-US",
+              "docs/guide/kimi-cli-support.en-US",
+              "docs/guide/use-kimi-k2-to-setup-agent.en-US",
+              "docs/guide/benchmark-best-practice.en-US",
+              "docs/guide/prompt-best-practice.en-US",
+              "docs/guide/org-best-practice.en-US",
+              "docs/guide/faq.en-US"
             ]
           },
           {
             "group": "Terms and Agreement",
             "pages": [
-              "src/pages/agreement/modeluse.en-US",
-              "src/pages/agreement/userprivacy.en-US"
+              "docs/agreement/modeluse.en-US",
+              "docs/agreement/userprivacy.en-US"
             ]
           }
         ]
@@ -87,10 +87,10 @@
       {
         "tab": "Pricing",
         "pages": [
-          "src/pages/pricing/chat.en-US",
-          "src/pages/pricing/tools.en-US",
-          "src/pages/pricing/limits.en-US",
-          "src/pages/pricing/faq.en-US"
+          "docs/pricing/chat.en-US",
+          "docs/pricing/tools.en-US",
+          "docs/pricing/limits.en-US",
+          "docs/pricing/faq.en-US"
         ]
       },
       {
