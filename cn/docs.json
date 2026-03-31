@@ -26,7 +26,8 @@
             "group": "概述",
             "pages": [
               "docs/overview",
-              "docs/introduction"
+              "docs/introduction",
+              "docs/models"
             ]
           },
           {

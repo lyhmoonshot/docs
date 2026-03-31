@@ -26,7 +26,8 @@
             "group": "Overview",
             "pages": [
               "docs/overview",
-              "docs/introduction"
+              "docs/introduction",
+              "docs/models"
             ]
           },
           {
