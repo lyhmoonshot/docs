@@ -117,16 +117,27 @@
       },
       {
         "tab": "Pricing",
-        "groups": [
+        "pages": [
           {
             "group": "Pricing",
+            "hidden": true,
             "pages": [
-              "docs/pricing/chat",
-              "docs/pricing/tools",
-              "docs/pricing/limits",
-              "docs/pricing/faq"
+              "docs/pricing/chat"
             ]
-          }
+          },
+          {
+            "group": "Chat Pricing",
+            "expanded": true,
+            "pages": [
+              "docs/pricing/concepts",
+              "docs/pricing/kimi-k2.5",
+              "docs/pricing/kimi-k2",
+              "docs/pricing/moonshot-v1"
+            ]
+          },
+          "docs/pricing/tools",
+          "docs/pricing/limits",
+          "docs/pricing/faq"
         ]
       },
       {
@@ -142,7 +153,10 @@
           },
           {
             "group": "Legal",
-            "pages": ["docs/agreement/modeluse", "docs/agreement/userprivacy"]
+            "pages": [
+              "docs/agreement/modeluse",
+              "docs/agreement/userprivacy"
+            ]
           }
         ]
       }
