@@ -1,0 +1,212 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Kimi Platform",
+  "colors": {
+    "primary": "#111111",
+    "light": "#2A2A2A",
+    "dark": "#111111"
+  },
+  "favicon": "/assets/pics/favicon.ico",
+  "styling": {
+    "eyebrows": "breadcrumbs"
+  },
+  "api": {
+    "openapi": "openapi.json",
+    "examples": {
+      "defaults": "required"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Get Started",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "docs/overview",
+              "docs/introduction"
+            ]
+          },
+          {
+            "group": "Quickstart",
+            "pages": [
+              "docs/guide/start-using-kimi-api",
+              "docs/guide/kimi-k2-5-quickstart",
+              "docs/guide/kimi-k2-quickstart"
+            ]
+          },
+          {
+            "group": "Next steps",
+            "pages": [
+              "docs/guide/use-kimi-k2-thinking-model",
+              "docs/guide/engage-in-multi-turn-conversations-using-kimi-api",
+              "docs/guide/use-kimi-vision-model",
+              "docs/guide/use-web-search"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Core workflows",
+            "pages": [
+              "docs/guide/utilize-the-streaming-output-feature-of-kimi-api",
+              "docs/guide/use-json-mode-feature-of-kimi-api",
+              "docs/guide/use-partial-mode-feature-of-kimi-api",
+              "docs/guide/auto-reconnect",
+              "docs/guide/use-kimi-api-for-file-based-qa"
+            ]
+          },
+          {
+            "group": "Tooling workflows",
+            "pages": [
+              "docs/guide/use-kimi-api-to-complete-tool-calls",
+              "docs/guide/use-official-tools",
+              "docs/guide/configure-the-modelscope-mcp-server"
+            ]
+          },
+          {
+            "group": "Debugging and operations",
+            "pages": [
+              "docs/guide/use-moonpalace",
+              "docs/guide/use-playground-to-debug-the-model",
+              "docs/guide/org-best-practice"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "docs/guide/use-kimi-in-openclaw",
+              "docs/guide/agent-support",
+              "docs/guide/kimi-cli-support",
+              "docs/guide/use-kimi-k2-to-setup-agent",
+              "docs/guide/migrating-from-openai-to-kimi"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "API",
+            "pages": [
+              "docs/api/chat",
+              "docs/api/tool-use",
+              "docs/api/partial",
+              "docs/api/estimate",
+              "docs/api/balance"
+            ]
+          },
+          {
+            "group": "Files",
+            "pages": [
+              "docs/api/files",
+              "docs/api/files-upload",
+              "docs/api/files-list",
+              "docs/api/files-retrieve",
+              "docs/api/files-delete",
+              "docs/api/files-content"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Pricing",
+        "groups": [
+          {
+            "group": "Pricing",
+            "pages": [
+              "docs/pricing/chat",
+              "docs/pricing/tools",
+              "docs/pricing/limits",
+              "docs/pricing/faq"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Resources",
+        "groups": [
+          {
+            "group": "Learning and support",
+            "pages": [
+              "docs/guide/prompt-best-practice",
+              "docs/guide/benchmark-best-practice",
+              "docs/guide/faq"
+            ]
+          },
+          {
+            "group": "Legal",
+            "pages": ["docs/agreement/modeluse", "docs/agreement/userprivacy"]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/assets/logo/light.svg",
+    "dark": "/assets/logo/dark.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Contact Sales",
+        "href": "https://platform.moonshot.ai/contact-sales"
+      },
+      {
+        "label": "Blog",
+        "href": "https://platform.moonshot.ai/blog"
+      },
+      {
+        "label": "Playground",
+        "href": "https://platform.moonshot.ai/playground"
+      },
+      {
+        "label": "User Center",
+        "href": "https://platform.moonshot.ai/console/account"
+      }
+    ]
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      {
+        "title": "Open in Kimi",
+        "description": "Ask questions about this page",
+        "icon": "/assets/logo/kimi-context.svg",
+        "href": {
+          "base": "https://www.kimi.com/",
+          "query": [
+            {
+              "key": "prefill_prompt",
+              "value": "Read from http://localhost:3000$path so I can ask questions about it."
+            }
+          ]
+        }
+      },
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/mintlify",
+      "github": "https://github.com/mintlify",
+      "linkedin": "https://linkedin.com/company/mintlify"
+    }
+  },
+  "banner": {
+    "content": "🎉 New kimi k2.5 Multi-modal Model released! Now supports multimodal understanding and processing.",
+    "dismissible": true
+  }
+}
