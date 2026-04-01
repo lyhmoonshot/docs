@@ -10,113 +10,109 @@ POST https://api.moonshot.ai/v1/chat/completions
 
 Create a chat completion request. The model generates a response based on the provided message list.
 
-## Request Parameters
+<Accordion title="Content Field Description">
 
-<ParamField path="messages" required type="List[Dict]">
-A list of messages that have been exchanged in the conversation so far.
+The `content` field supports the following forms:
 
-Each element follows the format: `{"role": "user", "content": "Hello"}`. `role` must be one of `system`, `user`, `assistant`, and `content` must not be empty. The `content` field can be a `string` or `List[Dict]`. See [Content Field Description](#content-field-description) below.
-</ParamField>
-
-<ParamField path="model" required type="string">
-Model ID. See the [List Models API](/docs/api/list-models) for all available models.
-
-Supported: `kimi-k2.5`, `kimi-k2-0905-preview`, `kimi-k2-0711-preview`, `kimi-k2-turbo-preview`, `kimi-k2-thinking`, `kimi-k2-thinking-turbo`, `moonshot-v1-8k`, `moonshot-v1-32k`, `moonshot-v1-128k`, `moonshot-v1-auto`, `moonshot-v1-8k-vision-preview`, `moonshot-v1-32k-vision-preview`, `moonshot-v1-128k-vision-preview`.
-</ParamField>
-
-<ParamField path="max_completion_tokens" type="integer" optional>
-The maximum number of tokens to generate. Defaults to 1024 if not specified.
-
-This is the expected **returned** token length, not the total input + output length. If input + `max_completion_tokens` exceeds the model's context window, the API returns `invalid_request_error`. Use the [Estimate Tokens API](/docs/api/estimate) to get exact input token counts.
-</ParamField>
-
-<ParamField path="temperature" type="float" optional>
-Sampling temperature between 0 and 1. Higher values make output more random, lower values more deterministic.
-
-Defaults and constraints vary by model. See [Models Overview](/docs/api/models-overview).
-</ParamField>
-
-<ParamField path="top_p" type="float" optional>
-Nucleus sampling parameter. 0.1 means only considering the top 10% of tokens by probability mass. We recommend changing either `temperature` or `top_p`, but not both.
-
-Defaults and constraints vary by model. See [Models Overview](/docs/api/models-overview).
-</ParamField>
-
-<ParamField path="n" type="integer" optional>
-Number of results to generate for each input message. Default is 1, max is 5.
-
-When `temperature` is close to 0, only 1 result can be returned. `kimi-k2.5` is fixed at 1 and cannot be modified. See [Models Overview](/docs/api/models-overview).
-</ParamField>
-
-<ParamField path="presence_penalty" type="float" optional>
-Presence penalty between -2.0 and 2.0. Positive values increase the likelihood of discussing new topics. Default is 0.
-</ParamField>
-
-<ParamField path="frequency_penalty" type="float" optional>
-Frequency penalty between -2.0 and 2.0. Positive values reduce the likelihood of repeating the same phrases. Default is 0.
-</ParamField>
-
-<ParamField path="response_format" type="object" optional>
-Set to `{"type": "json_object"}` to enable JSON Mode, ensuring valid JSON output.
-
-When enabled, **you must explicitly guide the model to output JSON format in the prompt**. Default is `{"type": "text"}`.
-</ParamField>
-
-<ParamField path="stop" type="string | List[String]" optional>
-Stop sequences. Output stops when a full match is found (the matched words are not included). Maximum 5 strings, each no longer than 32 bytes. Default is null.
-</ParamField>
-
-<ParamField path="thinking" type="object" optional>
-Controls whether thinking is enabled. Only available for `kimi-k2.5`.
-
-Default is `{"type": "enabled"}`. Set to `{"type": "disabled"}` to turn off. See [kimi-k2.5 Model Features](/docs/api/models-k25).
-</ParamField>
-
-<ParamField path="stream" type="boolean" optional>
-Whether to stream the response. Default is false.
-</ParamField>
-
-<ParamField path="stream_options.include_usage" type="boolean" optional>
-If set, an additional chunk with complete `usage` statistics is streamed before `data: [DONE]`. Default is false.
-</ParamField>
-
-<ParamField path="prompt_cache_key" type="string" optional>
-Used to cache responses for similar requests to optimize cache hit rates. For Coding Agents, typically a session id or task id. Default is null.
-</ParamField>
-
-<ParamField path="safety_identifier" type="string" optional>
-A stable identifier to help detect users who may be violating usage policies. We recommend hashing the username or email. Default is null.
-</ParamField>
-
-## Content Field Description
-
-The `content` field supports:
-
-- **Plain text**: `string` type, e.g. `"Hello"`
-- **Composite content**: `List[Dict]` type, each Dict contains:
-  - `type` (required): `text`, `image_url`, or `video_url`
-  - `text`: when `type` is `text`, the value is plain text
-  - `image_url`: when `type` is `image_url`, value is `{"url": "data:image/png;base64,..."}`
-  - `video_url`: when `type` is `video_url`, value is `{"url": "data:video/mp4;base64,..."}`
-
-Examples:
-
-```json
-// Plain text
-"Hello"
-
-// Mixed text and image
-[
-  {"type": "text", "text": "What is this?"},
-  {"type": "image_url", "image_url": {"url": "data:image/png;base64,abc123..."}}
-]
-```
+- Plain text string: `"Hello"`
+- Array of objects: `[{"type": "text", "text": "..."}, {"type": "image_url", "image_url": {"url": "..."}}]`
+- `[{"type": "video_url", "video_url": {"url": "data:video/mp4;base64,..."}}]`
 
 <Note>
 The `url` field of `image_url` and `video_url` supports base64 format and `ms://<file_id>` format. See [Use the Kimi Vision Model](/docs/guide/use-kimi-vision-model).
 </Note>
 
-## Response Format
+</Accordion>
+
+<Accordion title="Vision (Image Understanding)">
+
+#### Example
+
+```json
+{
+    "model": "kimi-k2.5",
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are Kimi, an AI assistant provided by Moonshot AI. You excel in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You refuse to answer any questions involving terrorism, racism, pornography, or violence. Moonshot AI is a proper noun and should not be translated into other languages."
+        },
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUg..."
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Describe this image"
+                }
+            ]
+        }
+    ]
+}
+```
+
+#### Image Content Field Description
+
+When using Vision models, the `message.content` field changes from `str` to `List[Object[str, any]]`. Each element in the `List` has the following fields:
+
+| Parameter | Required | Description | Type |
+|-----------|----------|-------------|------|
+| `type` | required | Only supports text type (`text`) or image type (`image_url`) | string |
+| `image_url` | required | Object for transmitting images | Dict[str, any] |
+
+The `image_url` parameter fields:
+
+| Parameter | Required | Description | Type |
+|-----------|----------|-------------|------|
+| `url` | required | Image content specified via base64 encoding or file id | string |
+
+#### Usage Example
+
+```python
+import os
+import base64
+
+from openai import OpenAI
+
+client = OpenAI(
+    api_key=os.environ.get("MOONSHOT_API_KEY"),
+    base_url="https://api.moonshot.ai/v1",
+)
+
+# Encode the image to base64
+with open("your_image_path", 'rb') as f:
+    img_base = base64.b64encode(f.read()).decode('utf-8')
+
+response = client.chat.completions.create(
+    model="kimi-k2.5",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": f"data:image/jpeg;base64,{img_base}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "Describe this image"
+                }
+            ]
+        }
+    ]
+)
+print(response.choices[0].message.content)
+```
+
+</Accordion>
+
+<Accordion title="Response Format">
 
 ### Non-streaming Response
 
@@ -159,9 +155,4 @@ data: {"id":"cmpl-xxx","object":"chat.completion.chunk","created":1698999575,"mo
 data: [DONE]
 ```
 
-## Related Resources
-
-- [Quickstart](/docs/api/quickstart) — Single-turn, multi-turn, and streaming examples
-- [Tool Use](/docs/api/tool-use) — Enable function calling
-- [Partial Mode](/docs/api/partial) — Guide model output with prefilling
-- [Models Overview](/docs/api/models-overview) — Parameter comparison and capability matrix
+</Accordion>

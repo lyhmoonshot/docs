@@ -1,7 +1,23 @@
 ---
-title: "Get file information"
-description: "Interactive reference for retrieving metadata for a specific uploaded file."
+title: "Get File Information"
+sidebarTitle: "Get File Information"
 openapi: "GET /v1/files/{file_id}"
 ---
 
-Use this endpoint to retrieve metadata for a previously uploaded file.
+<Accordion title="Usage Example">
+
+```python
+client.files.retrieve(file_id=file_id)
+# FileObject(
+#     id='clg681objj8g9m7n4je0',
+#     bytes=761790,
+#     created_at=1700815879,
+#     filename='xlnet.pdf',
+#     object='file',
+#     purpose='file-extract',
+#     status='ok',
+#     status_details=''
+# )
+```
+
+</Accordion>

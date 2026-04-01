@@ -10,113 +10,109 @@ POST https://api.moonshot.cn/v1/chat/completions
 
 创建一个对话补全请求，模型将根据输入的消息列表生成回复。
 
-## 请求参数
+<Accordion title="content 字段说明">
 
-<ParamField path="messages" required type="List[Dict]">
-包含迄今为止对话的消息列表。
+`content` 字段支持以下形式：
 
-每个元素格式为：`{"role": "user", "content": "你好"}`。`role` 支持 `system`、`user`、`assistant` 其一，`content` 不得为空。`content` 字段可以是 `string`，也可以是 `List[Dict]`，详见下方 [content 字段说明](#content-字段说明)。
-</ParamField>
-
-<ParamField path="model" required type="string">
-Model ID，可通过 [列出模型 API](/docs/api/list-models) 获取所有可用模型。
-
-支持：`kimi-k2.5`、`kimi-k2-0905-preview`、`kimi-k2-0711-preview`、`kimi-k2-turbo-preview`、`kimi-k2-thinking`、`kimi-k2-thinking-turbo`、`moonshot-v1-8k`、`moonshot-v1-32k`、`moonshot-v1-128k`、`moonshot-v1-auto`、`moonshot-v1-8k-vision-preview`、`moonshot-v1-32k-vision-preview`、`moonshot-v1-128k-vision-preview`。
-</ParamField>
-
-<ParamField path="max_completion_tokens" type="integer" optional>
-生成的最大 token 数。未指定时默认为 1024。
-
-此值为期望**返回**的 token 长度，而非输入 + 输出的总长度。如输入 + `max_completion_tokens` 超出模型上下文窗口，将返回 `invalid_request_error`。可使用[计算 Token API](/docs/api/estimate) 获取输入的精确 token 数。
-</ParamField>
-
-<ParamField path="temperature" type="float" optional>
-采样温度，介于 0 和 1 之间。较高的值使输出更随机，较低的值使输出更确定。
-
-各模型默认值和约束不同，详见[模型总览](/docs/api/models-overview)。
-</ParamField>
-
-<ParamField path="top_p" type="float" optional>
-核采样参数。0.1 意味着只考虑概率质量最高的 10% 的 token。建议 `temperature` 和 `top_p` 只修改其一。
-
-各模型默认值和约束不同，详见[模型总览](/docs/api/models-overview)。
-</ParamField>
-
-<ParamField path="n" type="integer" optional>
-为每条输入消息生成多少个结果。默认为 1，最大为 5。
-
-当 `temperature` 接近 0 时只能返回 1 个结果。`kimi-k2.5` 固定为 1 不可修改。详见[模型总览](/docs/api/models-overview)。
-</ParamField>
-
-<ParamField path="presence_penalty" type="float" optional>
-存在惩罚，介于 -2.0 到 2.0 之间。正值增加模型讨论新话题的可能性。默认为 0。
-</ParamField>
-
-<ParamField path="frequency_penalty" type="float" optional>
-频率惩罚，介于 -2.0 到 2.0 之间。正值减少模型重复同样话语的可能性。默认为 0。
-</ParamField>
-
-<ParamField path="response_format" type="object" optional>
-设置为 `{"type": "json_object"}` 可启用 JSON 模式，保证模型生成有效的 JSON。
-
-启用时，**需要在 prompt 中明确引导模型输出 JSON 格式并告知具体格式**。默认为 `{"type": "text"}`。
-</ParamField>
-
-<ParamField path="stop" type="string | List[String]" optional>
-停止词，匹配后停止输出（停止词本身不输出）。最多 5 个字符串，每个不超过 32 字节。默认 null。
-</ParamField>
-
-<ParamField path="thinking" type="object" optional>
-控制模型是否启用思考功能。仅对 `kimi-k2.5` 有效。
-
-默认 `{"type": "enabled"}`，设为 `{"type": "disabled"}` 可关闭。详见 [kimi-k2.5 模型特性](/docs/api/models-k25)。
-</ParamField>
-
-<ParamField path="stream" type="boolean" optional>
-是否流式返回。默认 false。
-</ParamField>
-
-<ParamField path="stream_options.include_usage" type="boolean" optional>
-启用后，在 `data: [DONE]` 前额外返回一个包含完整 `usage` 统计的 chunk。默认 false。
-</ParamField>
-
-<ParamField path="prompt_cache_key" type="string" optional>
-用于缓存相似请求的响应以优化缓存命中率。对 Coding Agent 通常使用 session id 或 task id。默认 null。
-</ParamField>
-
-<ParamField path="safety_identifier" type="string" optional>
-稳定标识符，用于检测可能违反使用政策的用户。建议对用户名或邮箱进行哈希处理。默认 null。
-</ParamField>
-
-## content 字段说明
-
-`content` 字段支持以下类型：
-
-- **纯文本**：`string` 类型，如 `"你好"`
-- **复合内容**：`List[Dict]` 类型，每个 Dict 包含：
-  - `type`（必需）：`text`、`image_url` 或 `video_url`
-  - `text`：当 `type` 为 `text` 时，值为纯文本
-  - `image_url`：当 `type` 为 `image_url` 时，值为 `{"url": "data:image/png;base64,..."}`
-  - `video_url`：当 `type` 为 `video_url` 时，值为 `{"url": "data:video/mp4;base64,..."}`
-
-示例：
-
-```json
-// 纯文本
-"你好"
-
-// 图文混合
-[
-  {"type": "text", "text": "这是什么？"},
-  {"type": "image_url", "image_url": {"url": "data:image/png;base64,abc123..."}}
-]
-```
+- 纯文本字符串：`"你好"`
+- 对象数组：`[{"type": "text", "text": "..."}, {"type": "image_url", "image_url": {"url": "..."}}]`
+- `[{"type": "video_url", "video_url": {"url": "data:video/mp4;base64,..."}}]`
 
 <Note>
-`image_url` 和 `video_url` 的 `url` 字段支持 base64 格式和 `ms://<file_id>` 格式。详见[使用 Kimi 视觉模型](/docs/guide/use-kimi-vision-model)。
+`image_url` 和 `video_url` 的 `url` 字段支持 base64 格式和 `ms://<file_id>` 格式，详见[使用 Kimi 视觉模型](/docs/guide/use-kimi-vision-model)。
 </Note>
 
-## 响应格式
+</Accordion>
+
+<Accordion title="Vision（图片理解）">
+
+#### 示例
+
+```json
+{
+    "model": "kimi-k2.5",
+    "messages": [
+        {
+            "role": "system",
+            "content": "你是 Kimi，由 Moonshot AI 提供的人工智能助手，你更擅长中文和英文的对话。你会为用户提供安全，有帮助，准确的回答。同时，你会拒绝一切涉及恐怖主义，种族歧视，黄色暴力等问题的回答。Moonshot AI 为专有名词，不可翻译成其他语言。"
+        },
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUg..."
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "请描述这个图片"
+                }
+            ]
+        }
+    ]
+}
+```
+
+#### Image Content 字段说明
+
+当使用 Vision 模型时，`message.content` 字段将由 `str` 变更为 `List[Object[str, any]]`，其中，`List` 中每个元素的字段说明如下：
+
+| 参数名称 | 是否必须 | 说明 | 类型 |
+|----------|---------|------|------|
+| `type` | required | 仅支持文本类型(`text`)或图片类型(`image_url`) | string |
+| `image_url` | required | 用于传输图片的对象 | Dict[str, any] |
+
+其中，`image_url` 参数的字段说明如下：
+
+| 参数名称 | 是否必须 | 说明 | 类型 |
+|----------|---------|------|------|
+| `url` | required | 使用 base64 编码或通过 file id 指定的图片内容 | string |
+
+#### 调用示例
+
+```python
+import os
+import base64
+
+from openai import OpenAI
+
+client = OpenAI(
+    api_key=os.environ.get("MOONSHOT_API_KEY"),
+    base_url="https://api.moonshot.cn/v1",
+)
+
+# 对图片进行 base64 编码
+with open("您的图片地址", 'rb') as f:
+    img_base = base64.b64encode(f.read()).decode('utf-8')
+
+response = client.chat.completions.create(
+    model="kimi-k2.5",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": f"data:image/jpeg;base64,{img_base}"
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "请描述这个图片"
+                }
+            ]
+        }
+    ]
+)
+print(response.choices[0].message.content)
+```
+
+</Accordion>
+
+<Accordion title="响应格式">
 
 ### 非流式响应
 
@@ -159,9 +155,4 @@ data: {"id":"cmpl-xxx","object":"chat.completion.chunk","created":1698999575,"mo
 data: [DONE]
 ```
 
-## 相关资源
-
-- [快速开始](/docs/api/quickstart) — 单轮/多轮对话和流式输出示例
-- [工具调用](/docs/api/tool-use) — 让模型调用外部函数
-- [Partial Mode](/docs/api/partial) — 预填引导模型输出
-- [模型总览](/docs/api/models-overview) — 各模型的参数对比和能力矩阵
+</Accordion>

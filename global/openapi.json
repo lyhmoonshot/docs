@@ -29,8 +29,36 @@
 						"description": "The role of the message sender"
 					},
 					"content": {
-						"type": "string",
-						"description": "The content of the message"
+						"oneOf": [
+							{ "type": "string" },
+							{
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"type": {
+											"type": "string",
+											"enum": ["text", "image_url", "video_url"]
+										},
+										"text": { "type": "string" },
+										"image_url": {
+											"type": "object",
+											"properties": {
+												"url": { "type": "string" }
+											}
+										},
+										"video_url": {
+											"type": "object",
+											"properties": {
+												"url": { "type": "string" }
+											}
+										}
+									},
+									"required": ["type"]
+								}
+							}
+						],
+						"description": "The content of the message. Can be a plain text string, or an array of objects with text/image_url/video_url types (for multimodal input)"
 					},
 					"name": {
 						"type": "string",
@@ -78,7 +106,7 @@
 				"properties": {
 					"messages": {
 						"type": "array",
-						"description": "A list of messages in the conversation so far",
+						"description": "A list of messages in the conversation so far. Each element has the format {\"role\": \"user\", \"content\": \"Hello\"}. role supports system, user, or assistant. content must not be empty. The content field can be a string or a List[Dict] (for multimodal input).",
 						"items": {
 							"$ref": "#/components/schemas/Message"
 						}
@@ -89,7 +117,7 @@
 					},
 					"max_completion_tokens": {
 						"type": "integer",
-						"description": "The maximum number of tokens to generate for the chat completion. If the result reaches the maximum number of tokens without ending, the finish reason will be \"length\"; otherwise, it will be \"stop\". This refers to the length of tokens you expect us to return, not the total length of input plus output."
+						"description": "The maximum number of tokens to generate for the chat completion. If not specified, defaults to a reasonable integer such as 1024. If the result reaches the maximum number of tokens without ending, the finish reason will be \"length\"; otherwise, it will be \"stop\". This refers to the length of tokens you expect us to return, not the total length of input plus output. If input plus max_completion_tokens exceeds the model context window, the API returns invalid_request_error."
 					},
 					"response_format": {
 						"type": "object",
@@ -110,11 +138,13 @@
 								"maxItems": 5
 							}
 						],
+						"default": null,
 						"description": "Stop words, which will halt the output when a full match is found. The matched words themselves will not be output. A maximum of 5 strings is allowed, and each string must not exceed 32 bytes"
 					},
 					"stream": {
 						"type": "boolean",
-						"description": "Whether to return the response in a streaming fashion"
+						"default": false,
+						"description": "Whether to return the response in a streaming fashion. Default is false."
 					},
 					"stream_options": {
 						"type": "object",
@@ -122,6 +152,7 @@
 						"properties": {
 							"include_usage": {
 								"type": "boolean",
+								"default": false,
 								"description": "If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value. NOTE: If the stream is interrupted, you may not receive the final usage chunk which contains the total token usage for the request"
 							}
 						}
@@ -136,6 +167,7 @@
 					},
 					"prompt_cache_key": {
 						"type": "string",
+						"default": null,
 						"description": "Used to cache responses for similar requests to optimize cache hit rates. For Coding Agents, this is typically a session id or task id representing a single session; if the session is exited and later resumed, this value should remain the same. For Kimi Code Plan, this field is required to improve cache hit rates. For other agents involving multi-turn conversations, it is also recommended to implement this field"
 					},
 					"safety_identifier": {
@@ -467,19 +499,19 @@
 							"available_balance": {
 								"type": "number",
 								"format": "float",
-								"description": "The available balance, including cash balance and voucher balance. When it is less than or equal to 0, the user cannot call the inference API",
+								"description": "The available balance (unit: USD), including cash balance and voucher balance. When it is less than or equal to 0, the user cannot call the inference API",
 								"example": 49.58894
 							},
 							"voucher_balance": {
 								"type": "number",
 								"format": "float",
-								"description": "The voucher balance, which cannot be negative",
+								"description": "The voucher balance (unit: USD), which cannot be negative",
 								"example": 46.58893
 							},
 							"cash_balance": {
 								"type": "number",
 								"format": "float",
-								"description": "The cash balance, which can be negative, indicating that the user owes money. When it is negative, available_balance is equal to the value of voucher_balance",
+								"description": "The cash balance (unit: USD), which can be negative, indicating that the user owes money. When it is negative, available_balance is equal to the value of voucher_balance",
 								"example": 3.00001
 							}
 						},
@@ -510,8 +542,6 @@
 							"kimi-k2-0905-preview",
 							"kimi-k2-0711-preview",
 							"kimi-k2-turbo-preview",
-							"kimi-k2-thinking",
-							"kimi-k2-thinking-turbo",
 							"moonshot-v1-8k",
 							"moonshot-v1-32k",
 							"moonshot-v1-128k",
@@ -523,7 +553,7 @@
 					},
 					"messages": {
 						"type": "array",
-						"description": "A list of messages in the conversation so far",
+						"description": "A list of messages in the conversation so far. Each element has the format {\"role\": \"user\", \"content\": \"Hello\"}. role supports system, user, or assistant. content must not be empty",
 						"items": {
 							"$ref": "#/components/schemas/Message"
 						}
@@ -574,7 +604,7 @@
 					},
 					"purpose": {
 						"type": "string",
-						"description": "Purpose used when uploading the file",
+						"description": "Purpose used when uploading the file. file-extract: extract file contents; image: upload images for vision understanding; video: upload videos for video understanding",
 						"enum": ["file-extract", "image", "video"]
 					},
 					"status": {
@@ -780,7 +810,7 @@
 									"purpose": {
 										"type": "string",
 										"enum": ["file-extract", "image", "video"],
-										"description": "Specifies how the uploaded file will be processed"
+										"description": "Specifies how the uploaded file will be processed. file-extract: extract file contents; image: upload images for vision understanding; video: upload videos for video understanding"
 									}
 								},
 								"required": ["file", "purpose"]

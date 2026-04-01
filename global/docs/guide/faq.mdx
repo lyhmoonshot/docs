@@ -38,7 +38,7 @@ When encountering `finish_reason=length`, if you want the Kimi large language mo
 
 [Using the Partial Mode Feature of the Kimi API](/docs/guide/use-partial-mode-feature-of-kimi-api)
 
-To avoid `finish_reason=length`, we recommend increasing the value of `max_tokens`. Our best practice suggestion is: **use the [estimate-token-count](/api/estimate) API to calculate the number of Tokens in the input content, then subtract this number from the maximum number of Tokens supported by the Kimi large language model (for example, for the `moonshot-v1-32k` model, the maximum is 32k Tokens). The resulting value should be used as the `max_tokens` value for the current request.** **The maximum value of `max_tokens` is 32k.**
+To avoid `finish_reason=length`, we recommend increasing the value of `max_tokens`. Our best practice suggestion is: **use the [estimate-token-count](/docs/api/estimate) API to calculate the number of Tokens in the input content, then subtract this number from the maximum number of Tokens supported by the Kimi large language model (for example, for the `moonshot-v1-32k` model, the maximum is 32k Tokens). The resulting value should be used as the `max_tokens` value for the current request.** **The maximum value of `max_tokens` is 32k.**
 
 ## What is the output length of the Kimi large language model?
 
@@ -62,7 +62,7 @@ _Note that for images, we only use OCR to extract text content, so if your image
 
 For a complete list of supported file formats, please refer to:
 
-[File Interface](/api/files#upload-file)
+[File Interface](/docs/api/files#upload-file)
 
 ## When using the `files` interface, I want to reference file content using `file_id`
 
@@ -256,7 +256,7 @@ Our error messages will follow this format:
 
 For a detailed list of error messages, please refer to the following section:
 
-[Error Description](/api/chat#error-description)
+[Error Description](/docs/api/errors)
 
 ## Why Do Some Requests Respond Quickly While Others Respond Slowly When the Prompt Is Similar?
 

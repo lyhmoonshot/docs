@@ -43,8 +43,7 @@
             "pages": [
               "docs/guide/use-kimi-k2-thinking-model",
               "docs/guide/engage-in-multi-turn-conversations-using-kimi-api",
-              "docs/guide/use-kimi-vision-model",
-              "docs/guide/use-web-search"
+              "docs/guide/use-kimi-vision-model"
             ]
           }
         ]
@@ -66,6 +65,7 @@
             "group": "Tooling workflows",
             "pages": [
               "docs/guide/use-kimi-api-to-complete-tool-calls",
+              "docs/guide/use-web-search",
               "docs/guide/use-official-tools",
               "docs/guide/configure-the-modelscope-mcp-server"
             ]
@@ -98,6 +98,7 @@
             "pages": [
               "docs/api/overview",
               "docs/api/quickstart",
+              "docs/api/models-overview",
               "docs/api/errors"
             ]
           },
@@ -106,15 +107,6 @@
             "pages": [
               "docs/api/tool-use",
               "docs/api/partial"
-            ]
-          },
-          {
-            "group": "Models",
-            "pages": [
-              "docs/api/models-overview",
-              "docs/api/models-k25",
-              "docs/api/models-k2",
-              "docs/api/models-v1"
             ]
           },
           {

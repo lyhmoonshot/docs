@@ -1,7 +1,16 @@
 ---
-title: "List files"
-description: "Interactive reference for listing files uploaded by the current user."
+title: "List Files"
+sidebarTitle: "List Files"
 openapi: "GET /v1/files"
 ---
 
-Use this endpoint to list all files uploaded by the current user.
+<Accordion title="Usage Example">
+
+```python
+file_list = client.files.list()
+
+for file in file_list.data:
+    print(file)  # Inspect the metadata of each file
+```
+
+</Accordion>

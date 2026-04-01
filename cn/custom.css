@@ -100,6 +100,13 @@
   border-color: transparent !important;
 }
 
+/* Fix Tabs active state visibility in dark mode */
+.dark li[role="tab"][aria-selected="true"] > div,
+[data-theme="dark"] li[role="tab"][aria-selected="true"] > div {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
 .nav-tabs-item[data-active],
 .mobile-nav-tabs-item[data-active] {
   color: var(--brand-primary) !important;

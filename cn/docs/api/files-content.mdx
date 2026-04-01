@@ -1,7 +1,25 @@
 ---
-title: "Get file content"
-description: "Interactive reference for retrieving extracted text content from a file uploaded with purpose file-extract."
+title: "获取文件内容"
+sidebarTitle: "获取文件内容"
 openapi: "GET /v1/files/{file_id}/content"
 ---
 
-Use this endpoint to fetch extracted plain-text content from a file uploaded with `purpose="file-extract"`.
+<Accordion title="调用示例">
+
+<Tabs>
+  <Tab title="python">
+    ```python
+    # 注意，之前 retrieve_content api 在最新版本标记了 warning, 可以用下面这行代替
+    # 如果是旧版本，可以用 retrieve_content
+    file_content = client.files.content(file_id=file_object.id).text
+    ```
+  </Tab>
+  <Tab title="curl">
+    ```bash
+    curl https://api.moonshot.cn/v1/files/{file_id}/content \
+      -H "Authorization: Bearer $MOONSHOT_API_KEY"
+    ```
+  </Tab>
+</Tabs>
+
+</Accordion>

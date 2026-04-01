@@ -319,13 +319,13 @@ Videos are supported in formats: mp4, mpeg, mov, avi, x-flv, mpg, webm, wmv, 3gp
 
 ### Token Calculation and Billing
 
-Image and video token usage is dynamically calculated. You can use the [token estimation API](/api/estimate) to check the expected token consumption for a request containing images or video before processing.
+Image and video token usage is dynamically calculated. You can use the [token estimation API](/docs/api/estimate) to check the expected token consumption for a request containing images or video before processing.
 
 Generally, the higher the resolution of an image, the more tokens it will consume. For videos, the number of tokens depends on the number of keyframes and their resolution—the more keyframes and the higher their resolution, the greater the token consumption.
 
 The Vision model uses the same billing method as the `moonshot-v1` model series, with charges based on the total number of tokens processed. For more information, see:
 
-For token pricing details, refer to [Model Pricing](/docs/pricing/chat).
+For token pricing details, refer to [Model Pricing](/docs/pricing/chat-k25).
 
 ### Recommended Resolution
 
@@ -333,7 +333,7 @@ We recommend that image resolution should not exceed 4k (4096×2160), and video 
 
 ### Upload File or Base64?
 
-Due to the limitation on the overall size of the request body, for very large videos you **must** use the file upload method to utilize vision capabilities.For images or videos that will be referenced multiple times, it is recommended to use the file upload method. Regarding file upload limitations, please refer to the [File Upload documentation](/api/files).
+Due to the limitation on the overall size of the request body, for very large videos you **must** use the file upload method to utilize vision capabilities.For images or videos that will be referenced multiple times, it is recommended to use the file upload method. Regarding file upload limitations, please refer to the [File Upload documentation](/docs/api/files-upload).
 
 Image quantity limit: The Vision model has no limit on the number of images, but ensure that the request body size does not exceed 100M
 
@@ -341,7 +341,7 @@ URL-formatted images: Not supported, currently only supports base64-encoded imag
 
 ## Parameters Differences in Request Body
 
-Parameters are listed in [chat](/api/chat#request-body). However, behaviour of some parameters may be different in k2.5 models.
+Parameters are listed in [chat](/docs/api/chat). However, behaviour of some parameters may be different in k2.5 models.
 
 **We recommend using the default values instead of manually configuring these parameters.**
 

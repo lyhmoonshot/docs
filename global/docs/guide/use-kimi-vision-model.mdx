@@ -112,7 +112,7 @@ Note that when using the Vision model, the type of the `message.content` field h
 
 ## Using Uploaded Images or Videos
 
-In the previous example, our `image_url` was a base64-encoded image. Since video files are often larger, we provide an additional method where you can first upload images or videos to Moonshot, then reference them via file ID. For information on uploading images or videos, please refer to [Image Understanding Upload](/api/files)
+In the previous example, our `image_url` was a base64-encoded image. Since video files are often larger, we provide an additional method where you can first upload images or videos to Moonshot, then reference them via file ID. For information on uploading images or videos, please refer to [Image Understanding Upload](/docs/api/files-upload)
 
 ```python
 import os
@@ -122,7 +122,7 @@ from openai import OpenAI
 
 client = OpenAI(
     api_key=os.environ.get("MOONSHOT_API_KEY"),
-    base_url="https://api.moonshot.cn/v1",
+    base_url="https://api.moonshot.ai/v1",
 )
 
 # Here, you need to replace video.mp4 with the path to the image or video you want Kimi to recognize
@@ -185,13 +185,13 @@ Videos support the following formats:
 
 ## Token Calculation and Costs
 
-Images and videos use dynamic token calculation. You can obtain the token consumption of a request containing images or videos through the [estimate tokens API](/api/estimate) before starting the understanding process.
+Images and videos use dynamic token calculation. You can obtain the token consumption of a request containing images or videos through the [estimate tokens API](/docs/api/estimate) before starting the understanding process.
 
 Generally speaking, the higher the image resolution, the more tokens it consumes. Videos are composed of several key frames. The more key frames and the higher the resolution, the more tokens are consumed.
 
 The Vision model follows the same pricing model as the `moonshot-v1` series, with costs based on the total tokens used for model inference. For more details on token pricing, please refer to:
 
-[Model Inference Pricing](/docs/pricing/chat)
+[Model Inference Pricing](/docs/pricing/chat-k25)
 
 ## Best Practices
 
@@ -205,7 +205,7 @@ Due to our overall request body size limitations, very large videos should be pr
 
 For images or videos that need to be referenced multiple times, we recommend using the file upload method for visual understanding.
 
-Regarding file upload limitations, please refer to the [File Upload](/api/files) documentation.
+Regarding file upload limitations, please refer to the [File Upload](/docs/api/files-upload) documentation.
 
 ## Features and Limitations
 
@@ -227,7 +227,7 @@ Other limitations:
 
 ## Parameters Differences in Request Body
 
-Parameters are listed in [chat](/api/chat#request-body). However, behaviour of some parameters may be different in k2.5 models.
+Parameters are listed in [chat](/docs/api/chat). However, behaviour of some parameters may be different in k2.5 models.
 
 **We recommend using the default values instead of manually configuring these parameters.**
 

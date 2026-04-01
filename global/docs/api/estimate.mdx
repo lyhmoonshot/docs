@@ -4,44 +4,11 @@ sidebarTitle: "Estimate Tokens"
 openapi: "POST /v1/tokenizers/estimate-token-count"
 ---
 
-## Request Content
-
 The input structure for `estimate-token-count` is almost identical to that of `chat completion`.
 
-## Example
+<Accordion title="Plain Text Call Example">
 
-```json
-{
-    "model": "kimi-k2.5",
-    "messages": [
-        {
-            "role": "system",
-            "content": "You are Kimi, an AI assistant provided by Moonshot AI. You excel in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You refuse to answer any questions involving terrorism, racism, pornography, or violence. Moonshot AI is a proper noun and should not be translated into other languages."
-        },
-        { "role": "user", "content": "Hello, my name is Li Lei. What is 1+1?" }
-    ]
-}
-```
-
-## Parameters
-
-<ParamField path="messages" required type="List[Dict]">
-A list of messages in the conversation so far.
-This is a list of structures, with each element similar to: `{"role": "user", "content": "Hello"}`. The role can only be one of `system`, `user`, `assistant`, and the content must not be empty.
-</ParamField>
-
-<ParamField path="model" required type="string">
-Model ID. See the [List Models API](/docs/api/list-models) for all available models.
-
-Supported: `kimi-k2.5`, `kimi-k2-0905-preview`, `kimi-k2-0711-preview`, `kimi-k2-turbo-preview`, `moonshot-v1-8k`, `moonshot-v1-32k`, `moonshot-v1-128k`, `moonshot-v1-auto`, `moonshot-v1-8k-vision-preview`, `moonshot-v1-32k-vision-preview`, `moonshot-v1-128k-vision-preview`
-</ParamField>
-
-## Call Examples
-
-- Plain text call
-
-<ExampleRequest>
-```bash cURL
+```bash
 curl 'https://api.moonshot.ai/v1/tokenizers/estimate-token-count' \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $MOONSHOT_API_KEY" \
@@ -59,9 +26,10 @@ curl 'https://api.moonshot.ai/v1/tokenizers/estimate-token-count' \
     ]
 }'
 ```
-</ExampleRequest>
 
-- Call with vision content
+</Accordion>
+
+<Accordion title="Vision Call Example">
 
 ```python
 import os
@@ -90,14 +58,14 @@ payload = {
             "role": "user",
             "content": [
                 {
-                    "type": "image_url",  # Use image_url type to upload images with base64-encoded content
+                    "type": "image_url",
                     "image_url": {
                         "url": image_url,
                     },
                 },
                 {
                     "type": "text",
-                    "text": "Please describe the content of the image.",  # Use text type to provide text instructions
+                    "text": "Please describe the content of the image.",
                 },
             ],
         }
@@ -116,14 +84,6 @@ response = requests.post(
 print(response.json())
 ```
 
-<ResponseExample>
-```json
-{
-    "data": {
-        "total_tokens": 80
-    }
-}
-```
-</ResponseExample>
+</Accordion>
 
 If there is no `error` field, you can take `data.total_tokens` as the calculation result.

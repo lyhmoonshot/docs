@@ -1,7 +1,16 @@
 ---
-title: "List files"
-description: "Interactive reference for listing files uploaded by the current user."
+title: "列出文件"
+sidebarTitle: "列出文件"
 openapi: "GET /v1/files"
 ---
 
-Use this endpoint to list all files uploaded by the current user.
+<Accordion title="调用示例">
+
+```python
+file_list = client.files.list()
+
+for file in file_list.data:
+    print(file) # 查看每个文件的信息
+```
+
+</Accordion>

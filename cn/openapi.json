@@ -29,8 +29,36 @@
 						"description": "消息发送者的角色"
 					},
 					"content": {
-						"type": "string",
-						"description": "消息内容"
+						"oneOf": [
+							{ "type": "string" },
+							{
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"type": {
+											"type": "string",
+											"enum": ["text", "image_url", "video_url"]
+										},
+										"text": { "type": "string" },
+										"image_url": {
+											"type": "object",
+											"properties": {
+												"url": { "type": "string" }
+											}
+										},
+										"video_url": {
+											"type": "object",
+											"properties": {
+												"url": { "type": "string" }
+											}
+										}
+									},
+									"required": ["type"]
+								}
+							}
+						],
+						"description": "消息内容。可以是纯文本字符串，也可以是包含 text/image_url/video_url 类型的对象数组（用于多模态输入）"
 					},
 					"name": {
 						"type": "string",
@@ -78,7 +106,7 @@
 				"properties": {
 					"messages": {
 						"type": "array",
-						"description": "当前对话中的消息列表",
+						"description": "包含迄今为止对话的消息列表。每个元素格式为 {\"role\": \"user\", \"content\": \"你好\"}。role 支持 system、user、assistant 其一，content 不得为空。content 字段可以是 string，也可以是 List[Dict]（用于多模态输入）",
 						"items": {
 							"$ref": "#/components/schemas/Message"
 						}
@@ -89,7 +117,7 @@
 					},
 					"max_completion_tokens": {
 						"type": "integer",
-						"description": "聊天补全生成的最大 Token 数量。如果结果达到最大 Token 数而未结束，finish reason 将为 \"length\"；否则为 \"stop\"。这是您期望返回的 Token 长度，而非输入加输出的总长度。"
+						"description": "聊天补全生成的最大 Token 数量。如果不给的话，默认给一个不错的整数比如 1024。如果结果达到最大 Token 数而未结束，finish reason 将为 \"length\"；否则为 \"stop\"。此值为期望返回的 Token 长度，而非输入加输出的总长度。如果输入加 max_completion_tokens 超出模型上下文窗口，将返回 invalid_request_error。"
 					},
 					"response_format": {
 						"type": "object",
@@ -110,11 +138,13 @@
 								"maxItems": 5
 							}
 						],
+						"default": null,
 						"description": "停用词，完全匹配时将停止输出。匹配到的词本身不会被输出。最多允许 5 个字符串，每个不超过 32 字节"
 					},
 					"stream": {
 						"type": "boolean",
-						"description": "是否以流式方式返回响应"
+						"default": false,
+						"description": "是否以流式方式返回响应，默认 false"
 					},
 					"stream_options": {
 						"type": "object",
@@ -122,6 +152,7 @@
 						"properties": {
 							"include_usage": {
 								"type": "boolean",
+								"default": false,
 								"description": "如果设置，将在 data: [DONE] 消息之前额外发送一个 chunk。该 chunk 的 usage 字段显示整个请求的 Token 使用统计，choices 字段为空数组。其他所有 chunk 也会包含 usage 字段，但值为 null。注意：如果流中断，可能无法收到包含总 Token 用量的最终 chunk"
 							}
 						}
@@ -136,6 +167,7 @@
 					},
 					"prompt_cache_key": {
 						"type": "string",
+						"default": null,
 						"description": "用于缓存相似请求的响应以优化缓存命中率。对于 Coding Agent，通常是代表单个会话的 session id 或 task id；退出并恢复会话时应保持不变。对于 Kimi Code Plan，此字段为必填以提高缓存命中率。对于其他多轮对话 Agent，也建议使用此字段"
 					},
 					"safety_identifier": {
@@ -467,19 +499,19 @@
 							"available_balance": {
 								"type": "number",
 								"format": "float",
-								"description": "可用余额，包含现金余额和代金券余额。当小于等于 0 时，用户无法调用推理 API",
+								"description": "可用余额（单位：人民币元），包含现金余额和代金券余额。当小于等于 0 时，用户无法调用推理 API",
 								"example": 49.58894
 							},
 							"voucher_balance": {
 								"type": "number",
 								"format": "float",
-								"description": "代金券余额，不可为负",
+								"description": "代金券余额（单位：人民币元），不可为负",
 								"example": 46.58893
 							},
 							"cash_balance": {
 								"type": "number",
 								"format": "float",
-								"description": "现金余额，可为负值表示欠费。当为负值时，available_balance 等于 voucher_balance 的值",
+								"description": "现金余额（单位：人民币元），可为负值表示欠费。当为负值时，available_balance 等于 voucher_balance 的值",
 								"example": 3.00001
 							}
 						},
@@ -510,8 +542,6 @@
 							"kimi-k2-0905-preview",
 							"kimi-k2-0711-preview",
 							"kimi-k2-turbo-preview",
-							"kimi-k2-thinking",
-							"kimi-k2-thinking-turbo",
 							"moonshot-v1-8k",
 							"moonshot-v1-32k",
 							"moonshot-v1-128k",
@@ -523,7 +553,7 @@
 					},
 					"messages": {
 						"type": "array",
-						"description": "当前对话中的消息列表",
+						"description": "包含迄今为止对话的消息列表。每个元素格式为 {\"role\": \"user\", \"content\": \"你好\"}。role 支持 system、user、assistant 其一，content 不得为空",
 						"items": {
 							"$ref": "#/components/schemas/Message"
 						}
@@ -574,7 +604,7 @@
 					},
 					"purpose": {
 						"type": "string",
-						"description": "上传文件时指定的用途",
+						"description": "上传文件时指定的用途。file-extract：抽取文件内容；image：上传图片，用于视觉理解；video：上传视频，用于视频理解",
 						"enum": ["file-extract", "image", "video"]
 					},
 					"status": {
@@ -780,7 +810,7 @@
 									"purpose": {
 										"type": "string",
 										"enum": ["file-extract", "image", "video"],
-										"description": "指定上传文件的处理方式"
+										"description": "指定上传文件的处理方式。file-extract：抽取文件内容；image：上传图片，用于视觉理解；video：上传视频，用于视频理解"
 									}
 								},
 								"required": ["file", "purpose"]

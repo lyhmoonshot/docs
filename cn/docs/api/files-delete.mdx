@@ -1,7 +1,13 @@
 ---
-title: "Delete file"
-description: "Interactive reference for deleting a previously uploaded file."
+title: "删除文件"
+sidebarTitle: "删除文件"
 openapi: "DELETE /v1/files/{file_id}"
 ---
 
-Use this endpoint to delete a file by its `file_id`.
+<Accordion title="调用示例">
+
+```python
+client.files.delete(file_id=file_id)
+```
+
+</Accordion>
