@@ -1,0 +1,47 @@
+---
+title: "Models Overview"
+sidebarTitle: "Models Overview"
+---
+
+Kimi Open Platform offers three model families. For the full model list and descriptions, see the [Model List](/docs/models).
+
+## Parameter Comparison
+
+Different model families have different defaults and constraints for Chat Completions API parameters:
+
+| Parameter | kimi-k2.5 | kimi-k2 series | kimi-k2-thinking series | moonshot-v1 series |
+|-----------|-----------|---------------|------------------------|-------------------|
+| `temperature` | **Cannot be modified** | 0.6 | 1.0 | 0.0 |
+| `top_p` | 0.95 **Cannot be modified** | 1.0 | 1.0 | 1.0 |
+| `n` | 1 **Cannot be modified** | 1 (max 5) | 1 (max 5) | 1 (max 5) |
+| `presence_penalty` | 0 **Cannot be modified** | 0 (modifiable) | 0 (modifiable) | 0 (modifiable) |
+| `frequency_penalty` | 0 **Cannot be modified** | 0 (modifiable) | 0 (modifiable) | 0 (modifiable) |
+| `thinking` | Supported | — | — | — |
+
+<Note>
+When `temperature` is close to 0, `n` can only be 1. Otherwise, the API returns `invalid_request_error`.
+</Note>
+
+## Capability Matrix
+
+| Capability | kimi-k2.5 | kimi-k2 series | kimi-k2-thinking series | moonshot-v1 series |
+|------------|-----------|---------------|------------------------|-------------------|
+| Vision (image/video) | ✅ | ❌ | ❌ | — |
+| Tool Use | ✅ | ✅ | ✅ | — |
+| JSON Mode | ✅ | ✅ | ✅ | — |
+| Partial Mode | ✅ | ✅ | ✅ | — |
+| Deep Thinking | ✅ | — | ✅ | — |
+
+Detailed descriptions and variants for each model:
+
+<CardGroup cols={3}>
+  <Card title="kimi-k2.5" href="/docs/api/models-k25">
+    Most versatile model, multimodal + thinking
+  </Card>
+  <Card title="kimi-k2" href="/docs/api/models-k2">
+    Exceptional code & agent, MoE architecture
+  </Card>
+  <Card title="Moonshot-v1" href="/docs/api/models-v1">
+    Classic generation model series
+  </Card>
+</CardGroup>

@@ -1,7 +1,6 @@
 ---
 title: "Partial Mode"
 sidebarTitle: "Partial Mode"
-openapi: "POST /v1/chat/completions"
 ---
 
 在使用大模型时，有时我们希望通过预填（Prefill）部分模型回复来引导模型的输出。在 Kimi 大模型中，我们提供 Partial Mode 来实现这一功能，它可以帮助我们控制输出格式，引导输出内容，以及让模型在角色扮演场景中保持更好的一致性。您只需要在最后一个 role 为 assistant 的 messages 条目中，增加 "partial": True 即可开启 partial mode。
@@ -18,9 +17,9 @@ openapi: "POST /v1/chat/completions"
 
 ## 调用示例
 
-### Json Mode
+### JSON Mode
 
-下面是使用 Partial Mode 来实现 Json Mode 的例子。
+下面是使用 Partial Mode 来实现 JSON Mode 的例子。
 
 <CodeGroup>
 ```python Python expandable

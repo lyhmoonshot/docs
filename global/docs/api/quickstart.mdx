@@ -1,0 +1,239 @@
+---
+title: "Quickstart"
+sidebarTitle: "Quickstart"
+---
+
+## Single-turn Chat
+
+Interact with the Chat Completions API using the OpenAI SDK and cURL:
+
+<CodeGroup>
+```python Python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="$MOONSHOT_API_KEY",
+    base_url="https://api.moonshot.ai/v1",
+)
+
+completion = client.chat.completions.create(
+    model="kimi-k2.5",
+    messages=[
+        {"role": "system", "content": "You are Kimi, an AI assistant provided by Moonshot AI. You are proficient in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You will reject any questions involving terrorism, racism, or explicit content. Moonshot AI is a proper noun and should not be translated."},
+        {"role": "user", "content": "Hello, my name is Li Lei. What is 1+1?"}
+    ],
+)
+
+print(completion.choices[0].message.content)
+```
+
+```bash cURL
+curl https://api.moonshot.ai/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $MOONSHOT_API_KEY" \
+    -d '{
+        "model": "kimi-k2.5",
+        "messages": [
+            {"role": "system", "content": "You are Kimi, an AI assistant provided by Moonshot AI. You are proficient in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You will reject any questions involving terrorism, racism, or explicit content. Moonshot AI is a proper noun and should not be translated."},
+            {"role": "user", "content": "Hello, my name is Li Lei. What is 1+1?"}
+        ]
+    }'
+```
+
+```javascript Node.js
+const OpenAI = require("openai");
+
+const client = new OpenAI({
+    apiKey: "$MOONSHOT_API_KEY",
+    baseURL: "https://api.moonshot.ai/v1",
+});
+
+async function main() {
+    const completion = await client.chat.completions.create({
+        model: "kimi-k2.5",
+        messages: [
+            {role: "system", content: "You are Kimi, an AI assistant provided by Moonshot AI. You are proficient in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You will reject any questions involving terrorism, racism, or explicit content. Moonshot AI is a proper noun and should not be translated."},
+            {role: "user", content: "Hello, my name is Li Lei. What is 1+1?"}
+        ],
+    });
+    console.log(completion.choices[0].message.content);
+}
+
+main();
+```
+</CodeGroup>
+
+Replace `$MOONSHOT_API_KEY` with the API Key you created on the platform.
+
+## Multi-turn Chat
+
+Use the model's output as part of the input to achieve multi-turn conversation:
+
+<CodeGroup>
+```python Python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="$MOONSHOT_API_KEY",
+    base_url="https://api.moonshot.ai/v1",
+)
+
+history = [
+    {"role": "system", "content": "You are Kimi, an AI assistant provided by Moonshot AI. You are proficient in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You will reject any questions involving terrorism, racism, or explicit content. Moonshot AI is a proper noun and should not be translated."}
+]
+
+def chat(query, history):
+    history.append({
+        "role": "user",
+        "content": query
+    })
+    completion = client.chat.completions.create(
+        model="kimi-k2.5",
+        messages=history,
+    )
+    result = completion.choices[0].message.content
+    history.append({
+        "role": "assistant",
+        "content": result
+    })
+    return result
+
+print(chat("What is the rotation period of the Earth?", history))
+print(chat("What about the Moon?", history))
+```
+
+```javascript Node.js
+const OpenAI = require("openai");
+
+const client = new OpenAI({
+    apiKey: "$MOONSHOT_API_KEY",
+    baseURL: "https://api.moonshot.ai/v1",
+});
+
+let history = [{"role": "system", "content": "You are Kimi, an AI assistant provided by Moonshot AI. You are proficient in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You will reject any questions involving terrorism, racism, or explicit content. Moonshot AI is a proper noun and should not be translated."}];
+
+async function chat(prompt) {
+    history.push({
+        role: "user",
+        content: prompt
+    });
+    const completion = await client.chat.completions.create({
+        model: "kimi-k2.5",
+        messages: history,
+    });
+    history = history.concat(completion.choices[0].message);
+    return completion.choices[0].message.content;
+}
+
+async function main() {
+    let reply = await chat("What is the rotation period of the Earth?");
+    console.log(reply);
+    reply = await chat("What about the Moon?");
+    console.log(reply);
+}
+
+main();
+```
+</CodeGroup>
+
+<Note>
+As the conversation progresses, the number of tokens the model needs to process increases linearly. When necessary, employ optimization strategies such as retaining only the most recent few rounds.
+</Note>
+
+## Streaming
+
+Use `stream: true` to enable streaming responses for a better user experience:
+
+<CodeGroup>
+```python Python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="$MOONSHOT_API_KEY",
+    base_url="https://api.moonshot.ai/v1",
+)
+
+response = client.chat.completions.create(
+    model="kimi-k2.5",
+    messages=[
+        {
+            "role": "system",
+            "content": "You are Kimi, an AI assistant provided by Moonshot AI. You excel at conversing in Chinese and English. You provide users with safe, helpful, and accurate responses. You refuse to answer any questions related to terrorism, racism, or explicit content. Moonshot AI is a proper noun and should not be translated into other languages.",
+        },
+        {"role": "user", "content": "Hello, my name is Li Lei. What is 1+1?"},
+    ],
+    stream=True,
+)
+
+collected_messages = []
+for idx, chunk in enumerate(response):
+    chunk_message = chunk.choices[0].delta
+    if not chunk_message.content:
+        continue
+    collected_messages.append(chunk_message)
+    print(f"#{idx}: {''.join([m.content for m in collected_messages])}")
+print(f"Full conversation received: {''.join([m.content for m in collected_messages])}")
+```
+
+```bash cURL
+curl https://api.moonshot.ai/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $MOONSHOT_API_KEY" \
+  -d '{
+    "model": "kimi-k2.5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are Kimi, an AI assistant provided by Moonshot AI. You excel at conversing in Chinese and English. You provide users with safe, helpful, and accurate responses. You refuse to answer any questions related to terrorism, racism, or explicit content. Moonshot AI is a proper noun and should not be translated into other languages."
+      },
+      {
+        "role": "user",
+        "content": "Hello, my name is Li Lei. What is 1+1?"
+      }
+    ],
+    "stream": true
+  }'
+```
+
+```javascript Node.js
+const OpenAI = require("openai");
+
+const client = new OpenAI({
+    apiKey: "$MOONSHOT_API_KEY",
+    baseURL: "https://api.moonshot.ai/v1",
+});
+
+async function main() {
+    const stream = await client.chat.completions.create({
+        model: "kimi-k2.5",
+        messages: [
+            {
+                role: "system",
+                content: "You are Kimi, an AI assistant provided by Moonshot AI. You excel at conversing in Chinese and English. You provide users with safe, helpful, and accurate responses. You refuse to answer any questions related to terrorism, racism, or explicit content. Moonshot AI is a proper noun and should not be translated into other languages."
+            },
+            {
+                role: "user",
+                content: "Hello, my name is Li Lei. What is 1+1?"
+            }
+        ],
+        stream: true,
+    });
+
+    for await (const chunk of stream) {
+        const delta = chunk.choices[0].delta;
+        if (delta.content) {
+            process.stdout.write(delta.content);
+        }
+    }
+}
+
+main();
+```
+</CodeGroup>
+
+## Next Steps
+
+- [Create Chat Completion](/docs/api/chat) — Full endpoint parameter reference
+- [Tool Use](/docs/api/tool-use) — Enable function calling
+- [Partial Mode](/docs/api/partial) — Guide model output format
+- [Models Overview](/docs/api/models-overview) — Compare model parameters and capabilities

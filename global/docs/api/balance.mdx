@@ -1,7 +1,6 @@
 ---
 title: "Check Balance"
 sidebarTitle: "Check Balance"
-description: "REST API to check your available, voucher, and cash balances on Kimi OpenPlatform."
 openapi: "GET /v1/users/me/balance"
 ---
 
@@ -12,7 +11,7 @@ This API endpoint requires authentication via Bearer token in the Authorization 
 <ExampleRequest>
 ```bash cURL 
 curl 'https://api.moonshot.ai/v1/users/me/balance' \
-  -H "Authorization: Bearer <$MOONSHOT_API_KEY>"
+  -H "Authorization: Bearer $MOONSHOT_API_KEY"
 ```
 </ExampleRequest>
 

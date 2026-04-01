@@ -94,11 +94,34 @@
         "tab": "API 接口说明",
         "groups": [
           {
-            "group": "API",
+            "group": "使用 API",
+            "pages": [
+              "docs/api/overview",
+              "docs/api/quickstart",
+              "docs/api/errors"
+            ]
+          },
+          {
+            "group": "核心能力",
+            "pages": [
+              "docs/api/tool-use",
+              "docs/api/partial"
+            ]
+          },
+          {
+            "group": "模型",
+            "pages": [
+              "docs/api/models-overview",
+              "docs/api/models-k25",
+              "docs/api/models-k2",
+              "docs/api/models-v1"
+            ]
+          },
+          {
+            "group": "API Reference",
             "pages": [
               "docs/api/chat",
-              "docs/api/tool-use",
-              "docs/api/partial",
+              "docs/api/list-models",
               "docs/api/estimate",
               "docs/api/balance"
             ]

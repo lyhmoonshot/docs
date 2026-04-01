@@ -1,13 +1,13 @@
 ---
 title: "Tool Use"
 sidebarTitle: "Tool Use"
-description: "Mastering the use of tools is a key hallmark of intelligence, and the Kimi large language model is no exception. Tool Use or Function Calling is a crucial feature of the Kimi large language model. When invoking the API to use the model service, you can describe tools or functions in the Messages, and the Kimi large language model will intelligently select and output a JSON object containing the parameters required to call one or more functions, thus enabling the Kimi large language model to link and utilize external tools."
-openapi: "POST /v1/chat/completions"
 ---
+
+Mastering the use of tools is a key hallmark of intelligence, and the Kimi large language model is no exception. Tool Use or Function Calling is a crucial feature of the Kimi large language model. When invoking the API to use the model service, you can describe tools or functions in the Messages, and the Kimi large language model will intelligently select and output a JSON object containing the parameters required to call one or more functions, thus enabling the Kimi large language model to link and utilize external tools.
 
 Here is a simple example of tool invocation:
 
-```json 
+```json
 {
   "model": "kimi-k2.5",
   "messages": [
@@ -45,25 +45,27 @@ Here is a simple example of tool invocation:
 ![A diagram of the example above](/assets/images/tooluse_whiteboard_example.png)
 </Frame>
 
-In the tools field, we can add a list of optional tools.
+In the `tools` field, we can add a list of optional tools.
 
-Each tool in the list must include a type. Within the function structure, we need to include a name (which should follow this regular expression as a specification: ^\[a-zA-Z\_\]\[a-zA-Z0-9-\_\]63$). A name that is an easily understandable English word is more likely to be accepted by the model. There should also be a description or enum. The description part explains what the tool can do, which helps the model to make judgments and selections. The function structure must have a parameters field. The root of parameters must be an object, and the content is a subset of JSON schema (we will provide specific documentation to introduce the technical details later). The number of functions in tools currently cannot exceed 128.
+Each tool in the list must include a `type`. Within the `function` structure, we need to include a `name` (which must follow this regular expression: `^[a-zA-Z_][a-zA-Z0-9-_]{2,63}$`). A name that is an easily understandable English word is more likely to be accepted by the model. There should also be a `description` or `enum`. The `description` part explains what the tool can do, which helps the model make judgments and selections.
+The `function` structure must have a `parameters` field. The root of `parameters` must be an `object`, and the content is a subset of JSON Schema (we will provide specific documentation to introduce the technical details later).
+The number of functions in `tools` currently cannot exceed 128.
 
 Like other APIs, we can call it through the Chat API.
 
 <CodeGroup>
 ```python Python expandable
 from openai import OpenAI
- 
+
 client = OpenAI(
     api_key = "$MOONSHOT_API_KEY",
     base_url = "https://api.moonshot.ai/v1",
 )
- 
+
 completion = client.chat.completions.create(
     model = "kimi-k2.5",
     messages = [
-        {"role": "system", "content": "You are Kimi, an AI assistant provided by Moonshot AI, who is more proficient in Chinese and English conversations. You will provide users with safe, helpful, and accurate answers. At the same time, you will reject any questions involving terrorism, racism, pornography, and violence. Moonshot AI is a proper noun and should not be translated into other languages."},
+        {"role": "system", "content": "You are Kimi, an AI assistant provided by Moonshot AI. You are proficient in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You will reject any questions involving terrorism, racism, or explicit content. Moonshot AI is a proper noun and should not be translated."},
         {"role": "user", "content": "Determine whether 3214567 is a prime number through programming."}
     ],
     tools = [{
@@ -85,70 +87,20 @@ completion = client.chat.completions.create(
             "type": "object"
             }
         }
-    }],
-    temperature = 0.6,
+    }]
 )
- 
+
 print(completion.choices[0].message)
 ```
 
-<ExampleRequest>
-```bash curl expandable
-curl 'https://api.moonshot.ai/v1/chat/completions' \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $MOONSHOT_API_KEY" \
-  -d '{
-    "model": "kimi-k2.5",
-    "messages": [
-      {
-        "role": "system",
-        "content": "You are Kimi, an AI assistant provided by Moonshot AI, who is more proficient in Chinese and English conversations. You will provide users with safe, helpful, and accurate answers. At the same time, you will reject any questions involving terrorism, racism, pornography, and violence. Moonshot AI is a proper noun and should not be translated into other languages."
-      },
-      {
-        "role": "user",
-        "content": "Determine whether 3214567 is a prime number through programming."
-      }
-    ],
-    "tools": [
-      {
-        "type": "function",
-        "function": {
-          "name": "CodeRunner",
-          "description": "A code executor that supports running Python and JavaScript code",
-          "parameters": {
-            "properties": {
-              "language": {
-                "type": "string",
-                "enum": ["python", "javascript"]
-              },
-              "code": {
-                "type": "string",
-                "description": "The code is written here"
-              }
-            },
-            "type": "object"
-          }
-        }
-      }
-    ],
-    "temperature": 0.6
-  }'
-```
-</ExampleRequest>
-
-```javascript Node.js expandable
-const OpenAI = require("openai");
- 
-const client = new OpenAI({
-    apiKey: "$MOONSHOT_API_KEY",
-    baseURL: "https://api.moonshot.ai/v1",
-});
- 
-async function main() {
-    const completion = await client.chat.completions.create({
-        model: "kimi-k2.5",         
+```bash cURL expandable
+curl https://api.moonshot.ai/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $MOONSHOT_API_KEY" \
+    -d '{
+        "model": "kimi-k2.5",
         "messages": [
-            {"role": "system", "content": "You are Kimi, an AI assistant provided by Moonshot AI, who is more proficient in Chinese and English conversations. You will provide users with safe, helpful, and accurate answers. At the same time, you will reject any questions involving terrorism, racism, pornography, and violence. Moonshot AI is a proper noun and should not be translated into other languages."},
+            {"role": "system", "content": "You are Kimi, an AI assistant provided by Moonshot AI. You are proficient in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You will reject any questions involving terrorism, racism, or explicit content. Moonshot AI is a proper noun and should not be translated."},
             {"role": "user", "content": "Determine whether 3214567 is a prime number through programming."}
         ],
         "tools": [{
@@ -170,16 +122,53 @@ async function main() {
                 "type": "object"
                 }
             }
-        }],
-        "temperature": 0.6
+        }]
+   }'
+```
+
+```javascript Node.js expandable
+const OpenAI = require("openai");
+
+const client = new OpenAI({
+    apiKey: "$MOONSHOT_API_KEY",
+    baseURL: "https://api.moonshot.ai/v1",
+});
+
+async function main() {
+    const completion = await client.chat.completions.create({
+        model: "kimi-k2.5",
+        messages: [
+            {"role": "system", "content": "You are Kimi, an AI assistant provided by Moonshot AI. You are proficient in Chinese and English conversations. You provide users with safe, helpful, and accurate answers. You will reject any questions involving terrorism, racism, or explicit content. Moonshot AI is a proper noun and should not be translated."},
+            {"role": "user", "content": "Determine whether 3214567 is a prime number through programming."}
+        ],
+        tools: [{
+            "type": "function",
+            "function": {
+                "name": "CodeRunner",
+                "description": "A code executor that supports running Python and JavaScript code",
+                "parameters": {
+                    "properties": {
+                        "language": {
+                            "type": "string",
+                            "enum": ["python", "javascript"]
+                        },
+                        "code": {
+                            "type": "string",
+                            "description": "The code is written here"
+                        }
+                    },
+                "type": "object"
+                }
+            }
+        }]
     });
     console.log(completion.choices[0].message);
 }
- 
+
 main();
 ```
 </CodeGroup>
 
 ### Tools Configuration
 
-You can also use some Agent platforms such as [Coze (opens in a new tab)](https://coze.cn/), [Bisheng (opens in a new tab)](https://github.com/dataelement/bisheng), [Dify (opens in a new tab)](https://github.com/langgenius/dify/), and [LangChain (opens in a new tab)](https://github.com/langchain-ai/langchain) to create and manage these tools, and design more complex workflows in conjunction with the Kimi large language model.
+You can also use Agent platforms such as [Coze](https://coze.cn/), [Bisheng](https://github.com/dataelement/bisheng), [Dify](https://github.com/langgenius/dify/), and [LangChain](https://github.com/langchain-ai/langchain) to create and manage these tools, and design more complex workflows in conjunction with the Kimi large language model.

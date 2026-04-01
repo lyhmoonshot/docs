@@ -53,19 +53,13 @@
   border-radius: 14px;
 }
 
-#sidebar-content li[data-active] a,
-#sidebar-content li[data-active] button,
-#sidebar-content li[data-active] span:not(.method-nav-pill):not(.method-pill) {
+#sidebar-content li[data-active] a:not(:has(.method-nav-pill, .method-pill)),
+#sidebar-content li[data-active] button {
   color: var(--brand-primary) !important;
 }
 
-/* API sidebar: ensure method pill and its children keep original colors */
-#sidebar-content li[data-active] .method-nav-pill,
-#sidebar-content li[data-active] .method-pill,
-#sidebar-content li[data-active] .method-nav-pill *,
-#sidebar-content li[data-active] .method-pill * {
-  color: unset !important;
-  background-color: unset !important;
+#sidebar-content li[data-active] a:has(.method-nav-pill, .method-pill) > span:not(.method-nav-pill):not(.method-pill) {
+  color: var(--brand-primary) !important;
 }
 
 .sidebar-group[data-active] > .sidebar-group-header,

@@ -1,0 +1,47 @@
+---
+title: "模型总览"
+sidebarTitle: "模型总览"
+---
+
+Kimi 开放平台提供三个模型系列。完整的模型列表和描述请参阅[模型列表](/docs/models)。
+
+## 参数对比
+
+不同模型系列对 Chat Completions API 参数有不同的默认值和约束：
+
+| 参数 | kimi-k2.5 | kimi-k2 系列 | kimi-k2-thinking 系列 | moonshot-v1 系列 |
+|------|-----------|-------------|----------------------|-----------------|
+| `temperature` | **不可修改** | 0.6 | 1.0 | 0.0 |
+| `top_p` | 0.95 **不可改** | 1.0 | 1.0 | 1.0 |
+| `n` | 1 **不可改** | 1（最大 5） | 1（最大 5） | 1（最大 5） |
+| `presence_penalty` | 0 **不可改** | 0（可修改） | 0（可修改） | 0（可修改） |
+| `frequency_penalty` | 0 **不可改** | 0（可修改） | 0（可修改） | 0（可修改） |
+| `thinking` | 支持 | — | — | — |
+
+<Note>
+当 `temperature` 接近 0 时，`n` 只能为 1，否则将返回 `invalid_request_error`。
+</Note>
+
+## 能力矩阵
+
+| 能力 | kimi-k2.5 | kimi-k2 系列 | kimi-k2-thinking 系列 | moonshot-v1 系列 |
+|------|-----------|-------------|----------------------|-----------------|
+| 视觉理解（图片/视频） | ✅ | ❌ | ❌ | — |
+| 工具调用 | ✅ | ✅ | ✅ | — |
+| JSON Mode | ✅ | ✅ | ✅ | — |
+| Partial Mode | ✅ | ✅ | ✅ | — |
+| 深度思考 | ✅ | — | ✅ | — |
+
+各模型的详细说明和变体列表：
+
+<CardGroup cols={3}>
+  <Card title="kimi-k2.5" href="/docs/api/models-k25">
+    最全能模型，多模态 + 思考
+  </Card>
+  <Card title="kimi-k2" href="/docs/api/models-k2">
+    超强代码 & Agent，MoE 架构
+  </Card>
+  <Card title="Moonshot-v1" href="/docs/api/models-v1">
+    经典生成模型系列
+  </Card>
+</CardGroup>
