@@ -68,10 +68,11 @@
   color: var(--brand-primary) !important;
 }
 
-/* Prevent synthetic bold on CJK characters — active state uses background highlight instead */
-#sidebar-content li[data-active] a,
-#sidebar-content li[data-active] button {
+/* Prevent synthetic bold on sidebar items — Mintlify uses text-shadow to simulate bold, which distorts CJK glyphs */
+#sidebar-content a,
+#sidebar-content button {
   font-weight: inherit !important;
+  text-shadow: none !important;
 }
 
 .sidebar-group[data-active] > .sidebar-group-header,
