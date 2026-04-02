@@ -62,10 +62,12 @@
 					},
 					"name": {
 						"type": "string",
+						"default": null,
 						"description": "消息发送者的名称（可选）"
 					},
 					"partial": {
 						"type": "boolean",
+						"default": false,
 						"description": "在最后一条 assistant 消息中设置为 true 以启用 Partial Mode"
 					}
 				},

@@ -62,10 +62,12 @@
 					},
 					"name": {
 						"type": "string",
+						"default": null,
 						"description": "Optional name for the message sender"
 					},
 					"partial": {
 						"type": "boolean",
+						"default": false,
 						"description": "Enable Partial Mode by setting this to true in the last assistant message"
 					}
 				},
