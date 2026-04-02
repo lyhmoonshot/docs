@@ -8,5 +8,5 @@
   </g>
 
   <!-- Platform 文字 - 与胶囊保持合适的间距 -->
-  <text x="84" y="22.5" fill="#374151" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="400">Platform</text>
+  <text x="80" y="22" fill="rgba(0,0,0,1)" font-family="'MiSans VF', Inter, system-ui, -apple-system, sans-serif" font-size="18" font-weight="500">Platform</text>
 </svg>
