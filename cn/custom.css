@@ -386,3 +386,8 @@ code:not(pre code) {
     grid-template-columns: 1fr;
   }
 }
+
+/* Hide language switcher (single-language site) */
+:has(> #localization-select-trigger) {
+  display: none !important;
+}

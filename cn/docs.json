@@ -18,7 +18,11 @@
     }
   },
   "navigation": {
-    "tabs": [
+    "languages": [
+      {
+        "language": "zh",
+        "default": true,
+        "tabs": [
       {
         "tab": "快速开始",
         "groups": [
@@ -180,6 +184,8 @@
           }
         ]
       }
+        ]
+      }
     ]
   },
   "logo": {
@@ -211,8 +217,8 @@
       "copy",
       "view",
       {
-        "title": "Open in Kimi",
-        "description": "Ask questions about this page",
+        "title": "在 Kimi 中打开",
+        "description": "询问有关此页面的问题",
         "icon": "/assets/logo/kimi-context.svg",
         "href": {
           "base": "https://kimi.moonshot.cn/",
