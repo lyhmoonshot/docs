@@ -18,12 +18,6 @@
     }
   },
   "navigation": {
-    "languages": [
-      {
-        "language": "zh",
-        "default": true
-      }
-    ],
     "tabs": [
       {
         "tab": "快速开始",
