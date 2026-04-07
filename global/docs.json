@@ -230,6 +230,6 @@
   },
   "banner": {
     "content": "🎉 New kimi k2.5 Multi-modal Model released! Now supports multimodal understanding and processing.",
-    "dismissible": true
+    "dismissible": false
   }
 }

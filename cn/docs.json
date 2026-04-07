@@ -239,6 +239,6 @@
   },
   "banner": {
     "content": "🎉 Kimi K2.5 多模态模型现已发布！支持多模态理解与处理。",
-    "dismissible": true
+    "dismissible": false
   }
 }
