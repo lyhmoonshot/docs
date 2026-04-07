@@ -379,6 +379,11 @@ code:not(pre code) {
   }
 }
 
+/* Hide API page right-side request/response code examples */
+#content-side-layout:has(.code-group) {
+  display: none !important;
+}
+
 @media (max-width: 700px) {
   .overview-page .overview-grid-2,
   .overview-page .overview-grid-3,
