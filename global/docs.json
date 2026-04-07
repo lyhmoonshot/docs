@@ -11,7 +11,8 @@
       "og:image:alt": "Kimi API Platform",
       "robots": "index,follow",
       "canonical": "https://platform.kimi.ai/docs",
-      "description": "Kimi K2.5 Open Platform, providing trillion-parameter K2.5 large language model API, supporting 256K long context and Tool Calling. Professional code generation, intelligent dialogue, visual reasoning, helping developers build AI applications."
+      "description": "Kimi K2.5 Open Platform, providing trillion-parameter K2.5 large language model API, supporting 256K long context and Tool Calling. Professional code generation, intelligent dialogue, visual reasoning, helping developers build AI applications.",
+      "keywords": "Kimi K2.5,Moonshot AI,K2.5 Large Language Model,AI API,Tool Calling,Code Generation,Intelligent Dialogue,AI Agent,Open-source Model,Long Context,Claw Bot"
     }
   },
   "colors": {
