@@ -196,19 +196,19 @@
     "links": [
       {
         "label": "联系销售",
-        "href": "https://platform.kimi.com/contact-sales"
+        "href": "/contact-sales"
       },
       {
         "label": "博客",
-        "href": "https://platform.kimi.com/blog"
+        "href": "/blog"
       },
       {
         "label": "开发工作台",
-        "href": "https://platform.kimi.com/playground"
+        "href": "/playground"
       },
       {
         "label": "用户中心",
-        "href": "https://platform.kimi.com/console/account"
+        "href": "/console/account"
       }
     ]
   },

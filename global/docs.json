@@ -185,19 +185,19 @@
     "links": [
       {
         "label": "Contact Sales",
-        "href": "https://platform.kimi.ai/contact-sales"
+        "href": "/contact-sales"
       },
       {
         "label": "Blog",
-        "href": "https://platform.kimi.ai/blog"
+        "href": "/blog"
       },
       {
         "label": "Playground",
-        "href": "https://platform.kimi.ai/playground"
+        "href": "/playground"
       },
       {
         "label": "User Center",
-        "href": "https://platform.kimi.ai/console/account"
+        "href": "/console/account"
       }
     ]
   },
